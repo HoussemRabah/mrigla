@@ -16,7 +16,7 @@ class TextFieldSimple extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
       child: TextField(
         controller: controller,
@@ -45,7 +45,7 @@ class TextFieldPhone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
       child: TextField(
         controller: controller,
@@ -70,7 +70,7 @@ class TextFieldPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
       child: TextField(
         style: textStyleSimple,

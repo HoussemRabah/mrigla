@@ -63,6 +63,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             // title header end
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 0),
+              child: Image.asset(
+                'assets/loginLogo.png',
+                fit: BoxFit.scaleDown,
+                width: MediaQuery.of(context).size.width * 0.7,
+              ),
+            ),
             SizedBox(
               height: 8.0,
             ),
@@ -125,6 +134,9 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: borderRadius,
                 color: colorForce,
               ),
+            ),
+            SizedBox(
+              height: 8.0,
             ),
             // switcher tab end
             if (_tab == 0) CenterBody(), // login
@@ -194,13 +206,6 @@ class _CenterBodyState extends State<CenterBody> {
       padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 8.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-            child: Image.asset(
-              'assets/loginLogo.png',
-              fit: BoxFit.scaleDown,
-            ),
-          ),
           TextFieldSimple(
             controller: _email,
             hint: "adresse email de l'utilisateur...",

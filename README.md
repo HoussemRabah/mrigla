@@ -7,6 +7,7 @@ version client
 C2
 
 ## comits
-C1 : config firebase for web
+C1 : config firebase for web 
+
 C2 : add UI page : login/sign page 
      TODO : more improvment in textfields

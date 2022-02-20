@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mrigla/UI/widgets/textfields.dart';
 import '/../UI/widgets/containers.dart';
 import '/../constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,6 +17,11 @@ TextEditingController _nom = TextEditingController();
 TextEditingController _phone = TextEditingController();
 TextEditingController _email = TextEditingController();
 TextEditingController _password = TextEditingController();
+String? _prenomError;
+String? _nomError;
+String? _phoneError;
+String? _emailError;
+String? _passwordError;
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -195,36 +201,17 @@ class _CenterBodyState extends State<CenterBody> {
               fit: BoxFit.scaleDown,
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration:
-                BoxDecoration(color: colorWhite, borderRadius: borderRadius),
-            child: TextField(
-              controller: _email,
-              style: textStyleSimple,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "adresse email de l'utilisateur...",
-                  hintStyle: textStyleSimple),
-            ),
+          TextFieldSimple(
+            controller: _email,
+            hint: "adresse email de l'utilisateur...",
+            error: _emailError,
           ),
           SizedBox(
             height: 8.0,
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration:
-                BoxDecoration(color: colorWhite, borderRadius: borderRadius),
-            child: TextField(
-              controller: _password,
-              style: textStyleSimple,
-              obscureText: true,
-              decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye),
-                  border: InputBorder.none,
-                  hintText: "mot de passe...",
-                  hintStyle: textStyleSimple),
-            ),
+          TextFieldPassword(
+            controller: _password,
+            error: _passwordError,
           ),
           Container(
             child: Text(
@@ -236,17 +223,20 @@ class _CenterBodyState extends State<CenterBody> {
           SizedBox(
             height: 16.0,
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: borderRadius,
-              color: colorMain,
-            ),
-            padding: EdgeInsets.all(16.0),
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: Text(
-              'vas-y !',
-              style: textStyleSimple.copyWith(color: colorWhite),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: borderRadius,
+                color: colorMain,
+              ),
+              padding: EdgeInsets.all(16.0),
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'vas-y !',
+                style: textStyleSimple.copyWith(color: colorWhite),
+              ),
             ),
           )
         ],
@@ -273,91 +263,46 @@ class _CenterBodyCreateAccountState extends State<CenterBodyCreateAccount> {
           Row(
             children: [
               Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                      color: colorWhite, borderRadius: borderRadius),
-                  child: TextField(
+                  flex: 1,
+                  child: TextFieldSimple(
                     controller: _nom,
-                    style: textStyleSimple,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "nom",
-                        hintStyle: textStyleSimple),
-                  ),
-                ),
-              ),
+                    hint: "nom",
+                    error: _nomError,
+                  )),
               SizedBox(
                 width: 8.0,
               ),
               Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                      color: colorWhite, borderRadius: borderRadius),
-                  child: TextField(
+                  flex: 1,
+                  child: TextFieldSimple(
                     controller: _prenom,
-                    style: textStyleSimple,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "prenom",
-                        hintStyle: textStyleSimple),
-                  ),
-                ),
-              ),
+                    hint: "prenom",
+                    error: _prenomError,
+                  )),
             ],
           ),
           SizedBox(
             height: 8.0,
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration:
-                BoxDecoration(color: colorWhite, borderRadius: borderRadius),
-            child: TextField(
-              controller: _phone,
-              style: textStyleSimple,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "numéro de téléphone",
-                  hintStyle: textStyleSimple),
-            ),
+          TextFieldPhone(
+            controller: _phone,
+            hint: 'numéro de téléphone',
+            error: _phoneError,
           ),
           SizedBox(
             height: 8.0,
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration:
-                BoxDecoration(color: colorWhite, borderRadius: borderRadius),
-            child: TextField(
-              controller: _email,
-              style: textStyleSimple,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "adresse email de l'utilisateur...",
-                  hintStyle: textStyleSimple),
-            ),
+          TextFieldSimple(
+            controller: _email,
+            hint: "adresse email de l'utilisateur...",
+            error: _emailError,
           ),
           SizedBox(
             height: 8.0,
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration:
-                BoxDecoration(color: colorWhite, borderRadius: borderRadius),
-            child: TextField(
-              style: textStyleSimple,
-              obscureText: true,
-              controller: _password,
-              decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye),
-                  border: InputBorder.none,
-                  hintText: "mot de passe...",
-                  hintStyle: textStyleSimple),
-            ),
+          TextFieldPassword(
+            controller: _password,
+            error: _passwordError,
           ),
           SizedBox(
             height: 16.0,

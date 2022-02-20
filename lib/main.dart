@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mrigla/constants.dart';
 import '../UI/pages/LoginUI.dart';
 
 void main() => runApp(MyApp());
 
-//test
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mrigla',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: colorMain,
       ),
       home: LoginPage(),
     );

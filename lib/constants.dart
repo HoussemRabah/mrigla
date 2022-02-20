@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+
+Color colorBack = Color(0xFFFBF8F1);
+Color colorForce = Color(0xFFF7ECDE);
+Color colorForceBold = Color(0xFFE9DAC1);
+Color colorMain = Color(0xff54BAB9);
+Color colorWhite = Color(0xFFFFFFFF);
+Color colorBlack = Color(0x00000000);
+
+const TextStyle testStyleSmall = TextStyle(fontSize: 13.0);
+const TextStyle testStyleSimple = TextStyle(fontSize: 15.0);
+const TextStyle testStyleBig =
+    TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500);
+const TextStyle testStyleTitle =
+    TextStyle(fontSize: 30.0, fontWeight: FontWeight.w900);
+
+BoxShadow shadows = BoxShadow(
+    offset: Offset(0, 0),
+    blurRadius: 15.0,
+    spreadRadius: 0,
+    color: colorForceBold);
+
+const BorderRadius borderRadius = BorderRadius.all(Radius.circular(30.0));

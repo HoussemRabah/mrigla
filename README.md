@@ -3,6 +3,7 @@
 the project mrigla
 version client
 
+##last version : C1
+
 ## comits
-last version : C1
 C1 : config firebase for web

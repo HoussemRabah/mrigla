@@ -8,8 +8,8 @@ class Sqaure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 79,
-      height: 79,
+      width: 70,
+      height: 70,
       alignment: Alignment.center,
       child: child,
       decoration: BoxDecoration(

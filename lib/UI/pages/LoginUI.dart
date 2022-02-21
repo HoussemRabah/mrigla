@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Image.asset(
                           'assets/loginLogo.png',
                           fit: BoxFit.scaleDown,
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: MediaQuery.of(context).size.width * 0.6,
                         ),
                       ),
                       SizedBox(
@@ -300,7 +300,7 @@ class _CenterBodyCreateAccountState extends State<CenterBodyCreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(32.0, 8.0, 32.0, 8.0),
+      padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 8.0),
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return Column(

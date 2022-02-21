@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mrigla/constants.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -13,12 +14,19 @@ class LoadingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(
+          LoadingAnimationWidget.twoRotatingArc(
             color: colorMain,
+            size: 150,
           ),
-          Text(
-            'Les belles choses prennent du temps',
-            style: textStyleBig,
+          SizedBox(
+            height: 16.0,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: Text(
+              'Les belles choses prennent du temps',
+              style: textStyleBig,
+            ),
           )
         ],
       ),

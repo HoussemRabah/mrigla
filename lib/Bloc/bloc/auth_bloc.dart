@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (init) {
         init = false;
 
+        await Future.delayed(Duration(seconds: 1));
         if (!databaseAuth.isSignIn()) {
           emit(AuthStateWaiting());
         }

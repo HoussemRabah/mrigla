@@ -28,9 +28,9 @@ class AuthRepository {
       if (phone.isEmpty) return AuthError("phone-vide");
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) {
+          .then((value) async {
         FirebaseFirestore firestore = FirebaseFirestore.instance;
-        firestore.collection("users/${value.user!.uid}").add(
+        firestore.doc("users/${value.user!.uid}").set(
             {"nom": nom, "prenom": prenom, "phone": phone, "role": "client"});
         return value;
       });

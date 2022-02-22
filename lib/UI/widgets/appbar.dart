@@ -30,6 +30,7 @@ class _AppBarHomeState extends State<AppBarHome> {
             style: textStyleSmall,
           ),
           trailing: Container(
+            padding: EdgeInsets.all(2.0),
             decoration: BoxDecoration(
                 color: colorForce,
                 borderRadius: borderRadius,

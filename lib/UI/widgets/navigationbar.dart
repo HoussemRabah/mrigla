@@ -10,6 +10,8 @@ class NavigationBarHome extends StatefulWidget {
   _NavigationBarHomeState createState() => _NavigationBarHomeState();
 }
 
+int _selectedIndex = 0;
+
 class _NavigationBarHomeState extends State<NavigationBarHome> {
   @override
   Widget build(BuildContext context) {
@@ -21,11 +23,17 @@ class _NavigationBarHomeState extends State<NavigationBarHome> {
       child: SalomonBottomBar(
           unselectedItemColor: colorForceBold,
           selectedItemColor: colorMain,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          currentIndex: _selectedIndex,
           items: [
             SalomonBottomBarItem(
                 icon: Icon(Ionicons.rocket), title: Text('services')),
             SalomonBottomBarItem(
-                icon: Icon(Ionicons.pricetags), title: Text('mes commandes')),
+                icon: Icon(Ionicons.pricetags), title: Text('commandes')),
             SalomonBottomBarItem(
                 icon: Icon(Ionicons.storefront), title: Text('marcheé')),
             SalomonBottomBarItem(

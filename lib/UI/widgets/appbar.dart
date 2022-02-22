@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '/../Bloc/bloc/auth_bloc.dart';
 import '/../constants.dart';
 
 class AppBarHome extends StatefulWidget {
@@ -30,7 +32,7 @@ class _AppBarHomeState extends State<AppBarHome> {
             style: textStyleSmall,
           ),
           trailing: Container(
-            padding: EdgeInsets.all(2.0),
+            padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
                 color: colorForce,
                 borderRadius: borderRadius,

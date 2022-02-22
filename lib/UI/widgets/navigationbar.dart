@@ -13,18 +13,24 @@ class NavigationBarHome extends StatefulWidget {
 class _NavigationBarHomeState extends State<NavigationBarHome> {
   @override
   Widget build(BuildContext context) {
-    return SalomonBottomBar(
-        unselectedItemColor: colorWhite,
-        selectedItemColor: colorMain,
-        items: [
-          SalomonBottomBarItem(
-              icon: Icon(Ionicons.rocket), title: Text('services')),
-          SalomonBottomBarItem(
-              icon: Icon(Ionicons.pricetags), title: Text('mes commandes')),
-          SalomonBottomBarItem(
-              icon: Icon(Ionicons.storefront), title: Text('marcheé')),
-          SalomonBottomBarItem(
-              icon: Icon(Ionicons.car), title: Text('ma voiture')),
-        ]);
+    return Container(
+      decoration: BoxDecoration(
+          color: colorWhite,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+      child: SalomonBottomBar(
+          unselectedItemColor: colorForceBold,
+          selectedItemColor: colorMain,
+          items: [
+            SalomonBottomBarItem(
+                icon: Icon(Ionicons.rocket), title: Text('services')),
+            SalomonBottomBarItem(
+                icon: Icon(Ionicons.pricetags), title: Text('mes commandes')),
+            SalomonBottomBarItem(
+                icon: Icon(Ionicons.storefront), title: Text('marcheé')),
+            SalomonBottomBarItem(
+                icon: Icon(Ionicons.car), title: Text('ma voiture')),
+          ]),
+    );
   }
 }

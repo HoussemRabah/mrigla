@@ -12,13 +12,15 @@ class _AppBarHomeState extends State<AppBarHome> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
           color: colorWhite,
           borderRadius: borderRadius,
         ),
         width: double.infinity,
         child: ListTile(
-          leading: Image.asset("assets/logo.png"),
+          leading: Image.asset("assets/logoBlack.png"),
           title: Text(
             'user name',
             style: textStyleSimple,
@@ -32,7 +34,6 @@ class _AppBarHomeState extends State<AppBarHome> {
                 color: colorForce,
                 borderRadius: borderRadius,
                 boxShadow: [shadows]),
-            width: 20,
             child: Text("XX points", style: textStyleSmall),
           ),
         ));

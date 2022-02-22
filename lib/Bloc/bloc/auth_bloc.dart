@@ -11,31 +11,25 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepository databaseAuth;
+  bool init = true;
   AuthBloc(this.databaseAuth) : super(AuthStateLoading()) {
     on<AuthEvent>((event, emit) async {
-      if (event is AuthEventInit) {
-        emit(AuthStateLoading());
-        if (databaseAuth.isSignIn()) {
-          Navigator.push(
-            databaseAuth.context!,
-            MaterialPageRoute(builder: (context) => const HomePage()),
-          );
-        } else {
+      if (init) {
+        init = false;
+
+        if (!databaseAuth.isSignIn()) {
           emit(AuthStateWaiting());
         }
+
         databaseAuth.authStateListner().listen((User? user) async {
           if (user == null) {
-            Navigator.push(
-              databaseAuth.context!,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-            ).then((value) => {Navigator.pop(databaseAuth.context!)});
           } else {
             await Future.delayed(Duration(milliseconds: 1000));
             if (databaseAuth.context != null) {
-              Navigator.push(
+              Navigator.pushReplacement(
                 databaseAuth.context!,
                 MaterialPageRoute(builder: (context) => const HomePage()),
-              ).then((value) => {Navigator.pop(databaseAuth.context!)});
+              );
             }
           }
         });

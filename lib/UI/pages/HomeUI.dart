@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/../UI/widgets/navigationbar.dart';
 import '/../UI/widgets/appbar.dart';
 import '/../constants.dart';
 
@@ -15,6 +16,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: colorBack,
+        bottomNavigationBar: NavigationBarHome(),
         body: Column(
           children: [
             AppBarHome(),

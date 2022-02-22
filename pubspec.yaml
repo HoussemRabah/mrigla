@@ -27,6 +27,8 @@ dependencies:
   firebase_analytics: ^9.1.0
   flutter_svg: ^1.0.3
   loading_animation_widget: ^1.1.0+1
+  salomon_bottom_bar: ^3.2.0
+  ionicons: ^0.1.2
 
 dev_dependencies:
   flutter_test:

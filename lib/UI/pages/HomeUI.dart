@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/../UI/widgets/appbar.dart';
 import '/../constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,9 +12,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorBack,
-      body: Text('home'),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: colorBack,
+        body: Column(
+          children: [
+            AppBarHome(),
+          ],
+        ),
+      ),
     );
   }
 }

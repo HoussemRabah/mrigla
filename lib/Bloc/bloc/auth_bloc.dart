@@ -1,26 +1,44 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:mrigla/Repository/auth_repo.dart';
+import '/../UI/pages/LoginUI.dart';
+import '/../Repository/auth_repo.dart';
+import '/../UI/pages/HomeUI.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepository databaseAuth;
-  bool init = true;
-  AuthBloc(this.databaseAuth) : super(AuthStateWaiting()) {
+  AuthBloc(this.databaseAuth) : super(AuthStateLoading()) {
     on<AuthEvent>((event, emit) async {
-      if (init) {
-        databaseAuth.authStateListner().listen((User? user) {
+      if (event is AuthEventInit) {
+        emit(AuthStateLoading());
+        if (databaseAuth.isSignIn()) {
+          Navigator.push(
+            databaseAuth.context!,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        } else {
+          emit(AuthStateWaiting());
+        }
+        databaseAuth.authStateListner().listen((User? user) async {
           if (user == null) {
-            print('User is currently signed out!');
+            Navigator.push(
+              databaseAuth.context!,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            ).then((value) => {Navigator.pop(databaseAuth.context!)});
           } else {
-            print('User is signed in!');
+            await Future.delayed(Duration(milliseconds: 1000));
+            if (databaseAuth.context != null) {
+              Navigator.push(
+                databaseAuth.context!,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              ).then((value) => {Navigator.pop(databaseAuth.context!)});
+            }
           }
         });
-
-        init = false;
       }
       if (event is AuthEventSignUp) {
         emit(AuthStateLoading());

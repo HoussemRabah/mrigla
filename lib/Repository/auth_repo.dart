@@ -1,9 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthRepository {
   FirebaseAuth auth = FirebaseAuth.instance;
+  BuildContext? context;
+
+  AuthRepository(this.context);
+
   Stream<User?> authStateListner() {
     return auth.authStateChanges();
+  }
+
+  User? currentUser() {
+    return auth.currentUser;
+  }
+
+  bool isSignIn() {
+    return currentUser() != null;
   }
 
   Future<AuthError?> signUp(String email, String password, String nom,
@@ -13,7 +27,13 @@ class AuthRepository {
       if (prenom.isEmpty) return AuthError("prenom-vide");
       if (phone.isEmpty) return AuthError("phone-vide");
       UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+        firestore.collection("users/${value.user!.uid}").add(
+            {"nom": nom, "prenom": prenom, "phone": phone, "role": "client"});
+        return value;
+      });
 
       return null;
     } on FirebaseAuthException catch (e) {

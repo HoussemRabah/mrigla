@@ -30,7 +30,27 @@ class _NavigationBarHomeState extends State<NavigationBarHome> {
                 unselectedItemColor: colorForceBold,
                 selectedItemColor: colorMain,
                 onTap: (index) {
-                  _selectedIndex = state.index;
+                  switch (index) {
+                    case 1:
+                      context
+                          .read<NavigationBloc>()
+                          .add(NavigationEventCommande());
+                      break;
+                    case 2:
+                      context
+                          .read<NavigationBloc>()
+                          .add(NavigationEventStore());
+                      break;
+                    case 3:
+                      context.read<NavigationBloc>().add(NavigationEventCar());
+                      break;
+                    default:
+                      context
+                          .read<NavigationBloc>()
+                          .add(NavigationEventService());
+                      break;
+                  }
+                  _selectedIndex = index;
                 },
                 currentIndex: _selectedIndex,
                 items: [

@@ -33,3 +33,15 @@ class LoadingPage extends StatelessWidget {
     );
   }
 }
+
+class Loading extends StatelessWidget {
+  const Loading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LoadingAnimationWidget.twoRotatingArc(
+      color: colorMain,
+      size: 20,
+    );
+  }
+}

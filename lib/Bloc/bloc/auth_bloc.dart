@@ -12,6 +12,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepository databaseAuth;
   bool init = true;
+  User? user;
   AuthBloc(this.databaseAuth) : super(AuthStateLoading()) {
     on<AuthEvent>((event, emit) async {
       if (init) {
@@ -31,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 databaseAuth.context!,
                 MaterialPageRoute(builder: (context) => const HomePage()),
               );
+              this.user = user;
             }
           }
         });

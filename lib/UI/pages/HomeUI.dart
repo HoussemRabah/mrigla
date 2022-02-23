@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrigla/Bloc/navigation/navigation_bloc.dart';
 import '/../UI/pages/LoginUI.dart';
 import '/../Bloc/auth/auth_bloc.dart';
 import '/../UI/widgets/navigationbar.dart';
@@ -17,14 +18,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: authBloc,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: authBloc),
+        BlocProvider(create: (context) => NavigationBloc()),
+      ],
       child: SafeArea(
         child: Scaffold(
           backgroundColor: colorBack,
           bottomNavigationBar: NavigationBarHome(),
           body: Column(
             children: [
+              BlocBuilder<NavigationBloc, NavigationState>(
+                builder: (context, state) {
+                  return Text("${state.index}");
+                },
+              ),
               AppBarHome(),
             ],
           ),

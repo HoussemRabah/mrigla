@@ -17,7 +17,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEvent>((event, emit) async {
       if (init && userAuth != null) {
         init = false;
-        print("objssssssect");
         emit(UserStateLoading());
         user = await userDB.getUser(userAuth!);
         if (user == null) {

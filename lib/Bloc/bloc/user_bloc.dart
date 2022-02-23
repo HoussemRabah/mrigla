@@ -13,15 +13,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   TheUser? user;
   UserRepository userDB;
   UserBloc({required this.userDB, required this.userAuth})
-      : super(UserInitial()) {
+      : super(UserStateLoading()) {
     on<UserEvent>((event, emit) async {
       if (init && userAuth != null) {
         init = false;
+        print("objssssssect");
         emit(UserStateLoading());
         user = await userDB.getUser(userAuth!);
         if (user == null) {
         } else {
-          emit(UserStateLoaded(user!));
+          int points = await userDB.getPoints(userAuth!);
+          emit(UserStateLoaded(user!, points));
         }
       }
     });

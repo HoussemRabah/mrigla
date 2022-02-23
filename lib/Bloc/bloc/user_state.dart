@@ -9,5 +9,6 @@ class UserStateLoading extends UserState {}
 
 class UserStateLoaded extends UserState {
   TheUser user;
-  UserStateLoaded(this.user) : super();
+  int points;
+  UserStateLoaded(this.user, this.points) : super();
 }

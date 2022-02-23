@@ -18,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (init) {
         init = false;
 
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(Duration(seconds: 3));
         if (!databaseAuth.isSignIn()) {
           emit(AuthStateWaiting());
         }
@@ -30,7 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             if (databaseAuth.context != null) {
               Navigator.pushReplacement(
                 databaseAuth.context!,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
               this.user = user;
             }

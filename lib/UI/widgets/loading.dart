@@ -39,9 +39,14 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingAnimationWidget.twoRotatingArc(
-      color: colorMain,
-      size: 20,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: LoadingAnimationWidget.twoRotatingArc(
+          color: colorMain,
+          size: 20,
+        ),
+      ),
     );
   }
 }

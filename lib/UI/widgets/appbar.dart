@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrigla/UI/pages/LoginUI.dart';
 import '/../Bloc/bloc/user_bloc.dart';
 import '/../Repository/user_repo.dart';
 import '/../Bloc/bloc/auth_bloc.dart';
@@ -15,17 +17,23 @@ class AppBarHome extends StatefulWidget {
 
 class _AppBarHomeState extends State<AppBarHome> {
   @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => UserRepository(),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider.value(value: BlocProvider.of<AuthBloc>(context)),
           BlocProvider(
             create: (context) => UserBloc(
               userDB: RepositoryProvider.of(context),
-              userAuth: BlocProvider.of<AuthBloc>(context).user,
-            ),
+              userAuth: authBloc.user,
+            )..add(UserEventInit()),
           )
         ],
         child: Container(
@@ -57,7 +65,8 @@ class _AppBarHomeState extends State<AppBarHome> {
                           color: colorForce,
                           borderRadius: borderRadius,
                           boxShadow: [shadows]),
-                      child: Text("XX points", style: textStyleSmall),
+                      child: Text("${(state as UserStateLoaded).points} points",
+                          style: textStyleSmall),
                     ),
                   );
               },

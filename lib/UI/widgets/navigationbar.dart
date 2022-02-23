@@ -22,6 +22,7 @@ class _NavigationBarHomeState extends State<NavigationBarHome> {
       child: Container(
         decoration: BoxDecoration(
             color: colorWhite,
+            boxShadow: [shadows],
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30))),
         child: BlocBuilder<NavigationBloc, NavigationState>(

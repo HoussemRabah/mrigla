@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '/../Bloc/bloc/auth_bloc.dart';
+import '/../Bloc/auth/auth_bloc.dart';
 import '/../UI/widgets/loading.dart';
 import '/../UI/widgets/success.dart';
 import '/../Repository/auth_repo.dart';

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mrigla/UI/pages/LoginUI.dart';
-import '/../Bloc/bloc/auth_bloc.dart';
+import '/../UI/pages/LoginUI.dart';
+import '/../Bloc/auth/auth_bloc.dart';
 import '/../UI/widgets/navigationbar.dart';
 import '/../UI/widgets/appbar.dart';
 import '/../constants.dart';

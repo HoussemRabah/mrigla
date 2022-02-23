@@ -14,10 +14,6 @@ class LoadingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          LoadingAnimationWidget.twoRotatingArc(
-            color: colorMain,
-            size: 150,
-          ),
           SizedBox(
             height: 16.0,
           ),
@@ -41,12 +37,7 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: LoadingAnimationWidget.twoRotatingArc(
-          color: colorMain,
-          size: 20,
-        ),
-      ),
+      child: Center(child: Text("")),
     );
   }
 }

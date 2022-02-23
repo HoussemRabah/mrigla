@@ -28,16 +28,18 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           backgroundColor: colorBack,
           bottomNavigationBar: NavigationBarHome(),
-          body: Column(
-            children: [
-              AppBarHome(),
-              BlocBuilder<NavigationBloc, NavigationState>(
-                builder: (context, state) {
-                  if (state is NavigationStateService) return ServicesPage();
-                  return Text("${state.index}");
-                },
-              ),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                AppBarHome(),
+                BlocBuilder<NavigationBloc, NavigationState>(
+                  builder: (context, state) {
+                    if (state is NavigationStateService) return ServicesPage();
+                    return Text("${state.index}");
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mrigla/UI/pages/LoginUI.dart';
-import '/../Bloc/bloc/user_bloc.dart';
+import '/../Bloc/auth/user_bloc.dart';
 import '/../Repository/user_repo.dart';
-import '/../Bloc/bloc/auth_bloc.dart';
+import '/../Bloc/auth/auth_bloc.dart';
 import '/../constants.dart';
 import 'loading.dart';
 
@@ -56,7 +56,7 @@ class _AppBarHomeState extends State<AppBarHome> {
                       style: textStyleSimple,
                     ),
                     subtitle: Text(
-                      'clicker ici pour voir votre profil',
+                      'cliquez pour voir votre profil',
                       style: textStyleSmall,
                     ),
                     trailing: Container(

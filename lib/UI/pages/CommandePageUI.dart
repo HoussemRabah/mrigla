@@ -119,7 +119,7 @@ class CommandesHeader extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/iconMN.png',
+                        'assets/iconCR.png',
                         fit: BoxFit.fitWidth,
                         width: 48,
                       ),

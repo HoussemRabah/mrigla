@@ -5,15 +5,12 @@ import '/../modules/UserModule.dart';
 class UserRepository {
   FirebaseFirestore database = FirebaseFirestore.instance;
 
-  Future<TheUser?> getUser(User user) async {
-    DocumentSnapshot data = await database.doc('users/${user.uid}').get();
+  Future<TheUser?> getCommandeOfUser(TheUser user) async {
+    DocumentSnapshot data = await database.doc('commandes/${user.id}').get();
     if ((data.data()) != null) {
-      return TheUser(
-          id: user.uid,
-          nom: (data.data() as Map)['nom'],
-          prenom: (data.data() as Map)['prenom'],
-          phone: (data.data() as Map)['phone'],
-          email: user.email ?? "");
+      for (List<Map> d in (data.data() as List)) {
+        for (Map commande in d) {}
+      }
     }
     return null;
   }

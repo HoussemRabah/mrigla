@@ -17,10 +17,13 @@ class _ServicesPageState extends State<ServicesPage> {
         SizedBox(
           height: 64.0,
         ),
+        // TODO  replace wrap with auto grid view
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8.0,
           runSpacing: 8.0,
           children: [
+            ServicesBigSqaure(),
             ServicesSqaure(
               title: "diagnostic rapide",
               subtitle:
@@ -52,6 +55,57 @@ class _ServicesPageState extends State<ServicesPage> {
   }
 }
 
+class ServicesBigSqaure extends StatelessWidget {
+  const ServicesBigSqaure({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      width: MediaQuery.of(context).size.width - 16.0,
+      decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset(
+            'assets/iconST.png',
+            fit: BoxFit.fitWidth,
+            width: 68,
+          ),
+          SizedBox(
+            width: 2.0,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "store",
+                style: textStyleBig.copyWith(color: colorBlack),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width -
+                    32.0 -
+                    68.0 -
+                    16.0 -
+                    16.0,
+                child: Text(
+                  "suuuuubcsqcsqcqcqscqb  bu b h b b  nio n ins ions oisdn o iob iosbisd bi b isob iosd iod si nsdi nsi io sd inds i",
+                  overflow: TextOverflow.clip,
+                  style: textStyleSmall.copyWith(color: colorMain),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ServicesSqaure extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -67,7 +121,7 @@ class ServicesSqaure extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      width: MediaQuery.of(context).size.width * 0.5 - 8.0,
+      width: MediaQuery.of(context).size.width * 0.5 - 16.0,
       decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +134,7 @@ class ServicesSqaure extends StatelessWidget {
           ),
           Text(
             title,
-            style: textStyleSimple.copyWith(color: colorBlack),
+            style: textStyleBig.copyWith(color: colorBlack),
           ),
           Text(
             subtitle,

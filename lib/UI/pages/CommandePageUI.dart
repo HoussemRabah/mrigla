@@ -48,7 +48,20 @@ class _CommandePageState extends State<CommandePage> {
                       padding: EdgeInsets.all(16.0),
                       child: Row(
                         children: [
-                          Expanded(child: Column()),
+                          Expanded(
+                              child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/iconMN.png',
+                                fit: BoxFit.fitWidth,
+                                width: 68,
+                              ),
+                              SizedBox(
+                                height: 8.0,
+                              ),
+                              Text('total paiment'),
+                            ],
+                          )),
                           Expanded(child: Column()),
                         ],
                       ),

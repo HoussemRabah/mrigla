@@ -9,6 +9,7 @@ part 'commande_state.dart';
 
 class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
   List<Commande> commandes = [];
+  List<CommandeService> commandeServices = [];
   bool init = true;
   CommandeRepository commandeDB;
   CommandeBloc({required this.commandeDB}) : super(CommandeStateInitial()) {
@@ -16,6 +17,8 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
       if (event is CommandeEventInit) {
         emit(CommandeStateLoading());
         commandes = (await commandeDB.getCommandesOfUser(event.user));
+        commandeServices =
+            (await commandeDB.getCommandesServiceOfUser(event.user));
         emit(CommandeStateLoaded());
       }
     });

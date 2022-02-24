@@ -4,3 +4,5 @@ part of 'commande_bloc.dart';
 abstract class CommandeState {}
 
 class CommandeStateInitial extends CommandeState {}
+
+class CommandeStateLoading extends CommandeState {}

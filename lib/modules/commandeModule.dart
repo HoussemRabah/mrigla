@@ -8,16 +8,16 @@ class Commande {
       required this.bon,
       required this.stat,
       required this.ordres});
+}
 
-  Commande mapToCommande(Map map) {
-    return Commande(id: map['id'], bon: map['bon'], stat: map['stat'], ordres: [
-      for (Map ordre in map["ordres"])
-        Ordre(
-            partId: ordre["partId"],
-            unitPrice: ordre["unitPrice"],
-            qnt: ordre["qnt"])
-    ]);
-  }
+commandeFromMap(Map map) {
+  return Commande(id: map['id'], bon: map['bon'], stat: map['stat'], ordres: [
+    for (Map ordre in map["ordres"])
+      Ordre(
+          partId: ordre["partId"],
+          unitPrice: ordre["unitPrice"],
+          qnt: ordre["qnt"])
+  ]);
 }
 
 class Ordre {

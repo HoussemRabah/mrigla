@@ -83,7 +83,7 @@ class ServicesBigSqaure extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "store",
+                "Magasin",
                 style: textStyleBig.copyWith(color: colorBlack),
               ),
               SizedBox(
@@ -93,7 +93,7 @@ class ServicesBigSqaure extends StatelessWidget {
                     16.0 -
                     16.0,
                 child: Text(
-                  "suuuuubcsqcsqcqcqscqb  bu b h b b  nio n ins ions oisdn o iob iosbisd bi b isob iosd iod si nsdi nsi io sd inds i",
+                  "Magasin de pièces détachées pour toutes les voitures ! Avec la fonction d'identification précise et automatique de la pièce dont vous avez besoin en fonction du modèle de la voiture, livrée même à votre domicile",
                   overflow: TextOverflow.clip,
                   style: textStyleSmall.copyWith(color: colorMain),
                 ),

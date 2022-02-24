@@ -122,6 +122,7 @@ class ServicesSqaure extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.0),
       width: MediaQuery.of(context).size.width * 0.5 - 16.0,
+      height: 225,
       decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,9 +137,14 @@ class ServicesSqaure extends StatelessWidget {
             title,
             style: textStyleBig.copyWith(color: colorBlack),
           ),
-          Text(
-            subtitle,
-            style: textStyleSmall.copyWith(color: colorMain),
+          Expanded(
+            child: SizedBox(
+              child: Text(
+                subtitle,
+                overflow: TextOverflow.clip,
+                style: textStyleSmall.copyWith(color: colorMain),
+              ),
+            ),
           ),
         ],
       ),

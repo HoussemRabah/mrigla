@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:mrigla/UI/pages/HomeUI.dart';
 import '/../Bloc/navigation/navigation_bloc.dart';
 import '/../constants.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -18,7 +19,7 @@ class _NavigationBarHomeState extends State<NavigationBarHome> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NavigationBloc(),
+      create: (context) => navigationBloc,
       child: Container(
         decoration: BoxDecoration(
             color: colorWhite,

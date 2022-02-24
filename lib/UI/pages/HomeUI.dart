@@ -16,13 +16,15 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+NavigationBloc navigationBloc = NavigationBloc();
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: authBloc),
-        BlocProvider(create: (context) => NavigationBloc()),
+        BlocProvider(create: (context) => navigationBloc),
       ],
       child: SafeArea(
         child: Scaffold(

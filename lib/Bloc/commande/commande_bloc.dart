@@ -19,7 +19,8 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
         commandes = (await commandeDB.getCommandesOfUser(event.user));
         commandeServices =
             (await commandeDB.getCommandesServiceOfUser(event.user));
-        emit(CommandeStateLoaded());
+        emit(CommandeStateLoaded(
+            commandes: commandes, commandeServices: commandeServices));
       }
     });
   }

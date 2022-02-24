@@ -10,6 +10,14 @@ class Commande {
       required this.bon,
       required this.stat,
       required this.ordres});
+
+  int getTotalPrice() {
+    int totalPrice = 0;
+    for (Ordre ordre in ordres) {
+      totalPrice += ordre.qnt * ordre.unitPrice;
+    }
+    return totalPrice;
+  }
 }
 
 class CommandeService {

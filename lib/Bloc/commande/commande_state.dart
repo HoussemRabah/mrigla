@@ -6,3 +6,5 @@ abstract class CommandeState {}
 class CommandeStateInitial extends CommandeState {}
 
 class CommandeStateLoading extends CommandeState {}
+
+class CommandeStateLoaded extends CommandeState {}

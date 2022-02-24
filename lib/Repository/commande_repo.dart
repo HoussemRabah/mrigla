@@ -12,10 +12,12 @@ class CommandeRepository {
     QuerySnapshot<Object?> data;
     data =
         (await database.collection('/commandes/${user.id}/commandes/').get());
+
     if (data != null) {
       for (var doc in data.docs) {
         commandes.add(commandeFromMap(doc.data() as Map));
       }
+
       return commandes;
     }
     return [];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../constants.dart';
 import '/../Bloc/auth/user_bloc.dart';
 import '/../Bloc/commande/commande_bloc.dart';
 import '/../UI/pages/HomeUI.dart';
@@ -32,6 +33,28 @@ class _CommandePageState extends State<CommandePage> {
             builder: (context, state) {
               if (state is CommandeStateLoading)
                 return Loading();
+              else if (state is CommandeStateLoaded)
+                return Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [shadows],
+                        color: colorMain,
+                        borderRadius: borderRadius,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: 225,
+                      margin: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Expanded(child: Column()),
+                          Expanded(child: Column()),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
               else
                 return Text('f');
             },

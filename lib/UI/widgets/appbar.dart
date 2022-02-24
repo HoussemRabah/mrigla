@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mrigla/UI/pages/LoginUI.dart';
+import '/../UI/pages/HomeUI.dart';
+import '/../UI/pages/LoginUI.dart';
 import '/../Bloc/auth/user_bloc.dart';
 import '/../Repository/user_repo.dart';
 import '/../Bloc/auth/auth_bloc.dart';
@@ -30,10 +31,7 @@ class _AppBarHomeState extends State<AppBarHome> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => UserBloc(
-              userDB: RepositoryProvider.of(context),
-              userAuth: authBloc.user,
-            )..add(UserEventInit()),
+            create: (context) => userBloc..add(UserEventInit()),
           )
         ],
         child: Container(

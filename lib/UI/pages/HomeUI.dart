@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrigla/Bloc/auth/user_bloc.dart';
 import 'package:mrigla/Bloc/navigation/navigation_bloc.dart';
+import 'package:mrigla/Repository/user_repo.dart';
 import 'package:mrigla/UI/pages/ServicesPageUI.dart';
 import '/../UI/pages/LoginUI.dart';
 import '/../Bloc/auth/auth_bloc.dart';
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 NavigationBloc navigationBloc = NavigationBloc();
+UserBloc userBloc = UserBloc(userAuth: authBloc.user, userDB: UserRepository());
 
 class _HomePageState extends State<HomePage> {
   @override

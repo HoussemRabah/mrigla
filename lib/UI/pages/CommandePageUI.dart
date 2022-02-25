@@ -67,7 +67,7 @@ class _CommandePageState extends State<CommandePage> {
                                       child: Text(
                                         "bon de commande ${state.commandes![index].bon}",
                                         style: textStyleSimple.copyWith(
-                                            color: colorBlack),
+                                            color: getCommandeStatTextColor( state.commandes![index].stat)),
                                       ),
                                     ),
                                     Expanded(child: SizedBox()),
@@ -136,6 +136,10 @@ class _CommandePageState extends State<CommandePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+                                    
+                                    if (state.commandes![index].stat == "1" || 
+                                    state.commandes![index].stat == "2" 
+                                    || state.commandes![index].stat == "3")
                                     Sqaure(
                                         child: Center(
                                       child: Text(
@@ -146,6 +150,9 @@ class _CommandePageState extends State<CommandePage> {
                                     SizedBox(
                                       width: 2.0,
                                     ),
+                                    if (state.commandes![index].stat == "1" || 
+                                    state.commandes![index].stat == "2" 
+                                    || state.commandes![index].stat == "3")
                                     Sqaure(
                                         child: Center(
                                       child: Text(
@@ -177,13 +184,14 @@ class _CommandePageState extends State<CommandePage> {
                                         style: textStyleSmall.copyWith(
                                             color: colorWhite),
                                       )),
-                                    if (state.commandes![index].stat == "0")
-                                      SqaureRed(
+                                    if (state.commandes![index].stat == "0" ||
+                                    state.commandes![index].stat == "5")
+                                      Sqaure(
                                           child: Text(
                                         "ok",
                                         textAlign: TextAlign.center,
                                         style: textStyleSmall.copyWith(
-                                            color: colorWhite),
+                                            color: colorBlack),
                                       )),
                                   ],
                                 )
@@ -454,3 +462,5 @@ Color getCommandeStatSubTextColor(String stat) {
       return colorWhite;
   }
 }
+
+

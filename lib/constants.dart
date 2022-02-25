@@ -6,6 +6,7 @@ Color colorForceBold = Color(0xFFE9DAC1);
 Color colorMain = Color(0xff54BAB9);
 Color colorWhite = Color(0xFFFFFFFF);
 Color colorBlack = Color(0xFF000000);
+Color colorRed = Color(0xFFF99C9C);
 
 const TextStyle textStyleSmall = TextStyle(fontSize: 13.0);
 const TextStyle textStyleSimple = TextStyle(fontSize: 15.0);

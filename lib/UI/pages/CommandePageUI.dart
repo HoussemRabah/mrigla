@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:mrigla/Repository/commande_repo.dart';
 import 'package:mrigla/UI/widgets/containers.dart';
 import '../../constants.dart';
 import '/../Bloc/auth/user_bloc.dart';
@@ -17,6 +18,12 @@ class CommandePage extends StatefulWidget {
 
 class _CommandePageState extends State<CommandePage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -27,10 +34,11 @@ class _CommandePageState extends State<CommandePage> {
         builder: (context, state) {
           if (state is UserStateLoading)
             return Loading();
-          else
+          else {
             context
                 .read<CommandeBloc>()
                 .add(CommandeEventInit((state as UserStateLoaded).user));
+          }
           return BlocBuilder<CommandeBloc, CommandeState>(
             builder: (context, state) {
               if (state is CommandeStateLoading)
@@ -67,7 +75,8 @@ class _CommandePageState extends State<CommandePage> {
                                       child: Text(
                                         "bon de commande ${state.commandes![index].bon}",
                                         style: textStyleSimple.copyWith(
-                                            color: getCommandeStatTextColor( state.commandes![index].stat)),
+                                            color: getCommandeStatTextColor(
+                                                state.commandes![index].stat)),
                                       ),
                                     ),
                                     Expanded(child: SizedBox()),
@@ -136,30 +145,29 @@ class _CommandePageState extends State<CommandePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    
-                                    if (state.commandes![index].stat == "1" || 
-                                    state.commandes![index].stat == "2" 
-                                    || state.commandes![index].stat == "3")
-                                    Sqaure(
-                                        child: Center(
-                                      child: Text(
-                                        '${state.commandes![index].getTotalPrice()} DA',
-                                        style: textStyleSmall,
-                                      ),
-                                    )),
+                                    if (state.commandes![index].stat == "1" ||
+                                        state.commandes![index].stat == "2" ||
+                                        state.commandes![index].stat == "3")
+                                      Sqaure(
+                                          child: Center(
+                                        child: Text(
+                                          '${state.commandes![index].getTotalPrice()} DA',
+                                          style: textStyleSmall,
+                                        ),
+                                      )),
                                     SizedBox(
                                       width: 2.0,
                                     ),
-                                    if (state.commandes![index].stat == "1" || 
-                                    state.commandes![index].stat == "2" 
-                                    || state.commandes![index].stat == "3")
-                                    Sqaure(
-                                        child: Center(
-                                      child: Text(
-                                        '${state.commandes![index].ordres.length} pieces',
-                                        style: textStyleSmall,
-                                      ),
-                                    )),
+                                    if (state.commandes![index].stat == "1" ||
+                                        state.commandes![index].stat == "2" ||
+                                        state.commandes![index].stat == "3")
+                                      Sqaure(
+                                          child: Center(
+                                        child: Text(
+                                          '${state.commandes![index].ordres.length} pieces',
+                                          style: textStyleSmall,
+                                        ),
+                                      )),
                                     SizedBox(
                                       width: 2.0,
                                     ),
@@ -185,7 +193,7 @@ class _CommandePageState extends State<CommandePage> {
                                             color: colorWhite),
                                       )),
                                     if (state.commandes![index].stat == "0" ||
-                                    state.commandes![index].stat == "5")
+                                        state.commandes![index].stat == "5")
                                       Sqaure(
                                           child: Text(
                                         "ok",
@@ -462,5 +470,3 @@ Color getCommandeStatSubTextColor(String stat) {
       return colorWhite;
   }
 }
-
-

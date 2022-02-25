@@ -12,13 +12,26 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
   List<CommandeService> commandeServices = [];
   bool init = true;
   CommandeRepository commandeDB;
-  CommandeBloc({required this.commandeDB}) : super(CommandeStateInitial()) {
+  CommandeBloc({required this.commandeDB}) : super(CommandeStateLoading()) {
     on<CommandeEvent>((event, emit) async {
+      // first time
       if (event is CommandeEventInit) {
         emit(CommandeStateLoading());
-        commandes = (await commandeDB.getCommandesOfUser(event.user));
         commandeServices =
             (await commandeDB.getCommandesServiceOfUser(event.user));
+
+        commandes = await commandeDB.getCommandesOfUser(event.user);
+        await commandeDB.commandeListener(event.user, (e) {
+          add(CommandeEventRefresh(newDocs: e, type: "commande"));
+        });
+        emit(CommandeStateLoaded(
+            commandes: commandes, commandeServices: commandeServices));
+      } else
+      // refresh
+      if (event is CommandeEventRefresh) {
+        emit(CommandeStateLoading());
+        if (event.type == "commande")
+          commandes = await commandeDB.getCommandes(event.newDocs);
         emit(CommandeStateLoaded(
             commandes: commandes, commandeServices: commandeServices));
       }

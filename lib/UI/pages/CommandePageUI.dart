@@ -51,162 +51,11 @@ class _CommandePageState extends State<CommandePage> {
                   children: [
                     CommandesHeader(state: state),
                     SizedBox(
-                      height: 16.0,
+                      height: 8.0,
                     ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: state.commandes!.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(16.0),
-                            margin: EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                                color: getCommandeContainerColor(
-                                    state.commandes![index].stat),
-                                borderRadius: borderRadius),
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 200.0,
-                                      child: Text(
-                                        "bon de commande ${state.commandes![index].bon}",
-                                        style: textStyleSimple.copyWith(
-                                            color: getCommandeStatTextColor(
-                                                state.commandes![index].stat)),
-                                      ),
-                                    ),
-                                    Expanded(child: SizedBox()),
-                                    Container(
-                                        padding: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius: borderRadius,
-                                            color: getCommandeStatColor(
-                                                state.commandes![index].stat)),
-                                        child: Text(
-                                          getCommandeStat(
-                                              state.commandes![index].stat),
-                                          style: textStyleSimple.copyWith(
-                                              color: getCommandeStatTextColor(
-                                                  state
-                                                      .commandes![index].stat)),
-                                        )),
-                                  ],
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/iconMN.png',
-                                      width: 150,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                    SizedBox(
-                                      width: 16.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              16.0 -
-                                              150.0 -
-                                              8.0 -
-                                              16.0 -
-                                              16.0 -
-                                              20.0,
-                                          child: Text(
-                                            getCommandeStatSubText(
-                                                state.commandes![index].stat),
-                                            style: textStyleSmall.copyWith(
-                                                color:
-                                                    getCommandeStatSubTextColor(
-                                                        state.commandes![index]
-                                                            .stat)),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 8.0,
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (state.commandes![index].stat == "1" ||
-                                        state.commandes![index].stat == "2" ||
-                                        state.commandes![index].stat == "3")
-                                      Sqaure(
-                                          child: Center(
-                                        child: Text(
-                                          '${state.commandes![index].getTotalPrice()} DA',
-                                          style: textStyleSmall,
-                                        ),
-                                      )),
-                                    SizedBox(
-                                      width: 2.0,
-                                    ),
-                                    if (state.commandes![index].stat == "1" ||
-                                        state.commandes![index].stat == "2" ||
-                                        state.commandes![index].stat == "3")
-                                      Sqaure(
-                                          child: Center(
-                                        child: Text(
-                                          '${state.commandes![index].ordres.length} pieces',
-                                          style: textStyleSmall,
-                                        ),
-                                      )),
-                                    SizedBox(
-                                      width: 2.0,
-                                    ),
-                                    if (state.commandes![index].stat == "1")
-                                      SqaureRed(
-                                          child: Text(
-                                        'anuller',
-                                        style: textStyleSmall.copyWith(
-                                            color: colorWhite),
-                                      )),
-                                    if (state.commandes![index].stat == "3" ||
-                                        state.commandes![index].stat == "4" ||
-                                        state.commandes![index].stat == "0")
-                                      Sqaure(child: Icon(Ionicons.call)),
-                                    if (state.commandes![index].stat == "4")
-                                      Sqaure(child: Icon(Ionicons.map)),
-                                    if (state.commandes![index].stat == "4")
-                                      SqaureBlue(
-                                          child: Text(
-                                        "accusé de réception",
-                                        textAlign: TextAlign.center,
-                                        style: textStyleSmall.copyWith(
-                                            color: colorWhite),
-                                      )),
-                                    if (state.commandes![index].stat == "0" ||
-                                        state.commandes![index].stat == "5")
-                                      Sqaure(
-                                          child: Text(
-                                        "ok",
-                                        textAlign: TextAlign.center,
-                                        style: textStyleSmall.copyWith(
-                                            color: colorBlack),
-                                      )),
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                    CommandesList(
+                      state: state,
+                    ),
                   ],
                 );
               else
@@ -216,6 +65,157 @@ class _CommandePageState extends State<CommandePage> {
         },
       ),
     );
+  }
+}
+
+class CommandesList extends StatelessWidget {
+  final CommandeStateLoaded state;
+  const CommandesList({Key? key, required this.state}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: state.commandes!.length,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: EdgeInsets.all(16.0),
+            margin: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                color: getCommandeContainerColor(state.commandes![index].stat),
+                borderRadius: borderRadius),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        child: Text(
+                          "bon de commande ${state.commandes![index].bon}",
+                          style: textStyleBig.copyWith(
+                              color: getCommandeStatTextColor(
+                                  state.commandes![index].stat)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                            borderRadius: borderRadius,
+                            color: getCommandeStatColor(
+                                state.commandes![index].stat)),
+                        child: Text(
+                          getCommandeStat(state.commandes![index].stat),
+                          overflow: TextOverflow.ellipsis,
+                          style: textStyleSimple.copyWith(
+                              color: getCommandeStatTextColor(
+                                  state.commandes![index].stat)),
+                        )),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/iconMN.png',
+                      width: 150,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width -
+                              16.0 -
+                              150.0 -
+                              8.0 -
+                              16.0 -
+                              16.0 -
+                              30.0,
+                          child: Text(
+                            getCommandeStatSubText(
+                                state.commandes![index].stat),
+                            style: textStyleSmall.copyWith(
+                                color: getCommandeStatSubTextColor(
+                                    state.commandes![index].stat),
+                                overflow: TextOverflow.clip),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (state.commandes![index].stat == "1" ||
+                        state.commandes![index].stat == "2" ||
+                        state.commandes![index].stat == "3")
+                      Sqaure(
+                          child: Center(
+                        child: Text(
+                          '${state.commandes![index].getTotalPrice()} DA',
+                          style: textStyleSmall,
+                        ),
+                      )),
+                    if (state.commandes![index].stat == "1" ||
+                        state.commandes![index].stat == "2" ||
+                        state.commandes![index].stat == "3")
+                      Sqaure(
+                          child: Center(
+                        child: Text(
+                          '${state.commandes![index].ordres.length} pieces',
+                          style: textStyleSmall,
+                        ),
+                      )),
+                    if (state.commandes![index].stat == "1")
+                      SqaureRed(
+                          child: Text(
+                        'anuller',
+                        style: textStyleSmall.copyWith(color: colorWhite),
+                      )),
+                    if (state.commandes![index].stat == "3" ||
+                        state.commandes![index].stat == "4" ||
+                        state.commandes![index].stat == "0")
+                      Sqaure(
+                          child: Icon(
+                        Ionicons.call,
+                        color: colorMain,
+                      )),
+                    if (state.commandes![index].stat == "4")
+                      Sqaure(child: Icon(Ionicons.map, color: colorMain)),
+                    if (state.commandes![index].stat == "4")
+                      SqaureBlue(
+                          child: Text(
+                        "accusé de réception",
+                        textAlign: TextAlign.center,
+                        style: textStyleSmall.copyWith(color: colorWhite),
+                      )),
+                    if (state.commandes![index].stat == "0" ||
+                        state.commandes![index].stat == "5")
+                      Sqaure(
+                          child: Text(
+                        "ok",
+                        textAlign: TextAlign.center,
+                        style: textStyleSmall.copyWith(color: colorBlack),
+                      )),
+                  ],
+                )
+              ],
+            ),
+          );
+        });
   }
 }
 
@@ -382,8 +382,8 @@ String getCommandeStat(String stat) {
               : (stat == "4")
                   ? "arrivée"
                   : (stat == "0")
-                      ? "abandonner"
-                      : "Échouer";
+                      ? "Échouer"
+                      : "abandonner";
 }
 
 Color getCommandeStatColor(String stat) {

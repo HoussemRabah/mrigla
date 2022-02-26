@@ -8,6 +8,7 @@ import '/../Bloc/auth/user_bloc.dart';
 import '/../Bloc/commande/commande_bloc.dart';
 import '/../UI/pages/HomeUI.dart';
 import '/../UI/widgets/loading.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CommandePage extends StatefulWidget {
   const CommandePage({Key? key}) : super(key: key);
@@ -91,12 +92,16 @@ class EmptyView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '',
+          "Actuellement, vous n'avez pas demandé de service ou de pièces détachées",
           style: textStyleBig.copyWith(color: colorBlack),
         ),
-        Image.asset('assets/welcomeImage.png'),
+       Image.asset(
+  "assets/noItemImage.png",
+  fit:BoxFit.fitWidth,
+  width: MediaQuery.of(context).size.width*0.8
+),
         Text(
-          '',
+          "Qu'attendez-vous? \nAchetez nos services et produits dès maintenant pour obtenir des points et gagner des cadeaux",
           style: textStyleSimple.copyWith(color: colorBlack),
         ),
       ],

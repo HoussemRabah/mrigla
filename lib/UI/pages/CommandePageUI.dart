@@ -43,20 +43,28 @@ class _CommandePageState extends State<CommandePage> {
             builder: (context, state) {
               if (state is CommandeStateLoading)
                 return Loading();
-              else if (state is CommandeStateLoaded) if ((state).commandes ==
-                  null)
-                return Text('empty');
+              else if (state is CommandeStateLoaded) if ((state)
+                          .commandes!
+                          .length ==
+                      0 &&
+                  state.commandeServices!.length == 0)
+                return EmptyView();
               else
                 return Column(
                   children: [
-                    CommandesHeader(state: state),
+                    if (state.commandes != null)
+                      if (state.commandes!.length != 0)
+                        CommandesHeader(state: state),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    CommandesServiceList(
+                      state: state,
+                    ),
                     SizedBox(
                       height: 8.0,
                     ),
                     CommandesList(
-                      state: state,
-                    ),
-                    CommandesServiceList(
                       state: state,
                     ),
                   ],
@@ -67,6 +75,31 @@ class _CommandePageState extends State<CommandePage> {
           );
         },
       ),
+    );
+  }
+}
+
+class EmptyView extends StatelessWidget {
+  const EmptyView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          '',
+          style: textStyleBig.copyWith(color: colorBlack),
+        ),
+        Image.asset('assets/welcomeImage.png'),
+        Text(
+          '',
+          style: textStyleSimple.copyWith(color: colorBlack),
+        ),
+      ],
     );
   }
 }

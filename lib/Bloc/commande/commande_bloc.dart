@@ -24,6 +24,9 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
         await commandeDB.commandeListener(event.user, (e) {
           add(CommandeEventRefresh(newDocs: e, type: "commande"));
         });
+        await commandeDB.commandeServiceListener(event.user, (e) {
+          add(CommandeEventRefresh(newDocs: e, type: "service"));
+        });
         emit(CommandeStateLoaded(
             commandes: commandes, commandeServices: commandeServices));
       } else
@@ -32,6 +35,9 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
         emit(CommandeStateLoading());
         if (event.type == "commande")
           commandes = await commandeDB.getCommandes(event.newDocs);
+        if (event.type == "service")
+          commandeServices =
+              await commandeDB.getCommandesService(event.newDocs);
         emit(CommandeStateLoaded(
             commandes: commandes, commandeServices: commandeServices));
       }

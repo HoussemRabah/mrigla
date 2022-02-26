@@ -21,12 +21,22 @@ class CommandeRepository {
 
     if (data != null) {
       for (var doc in data.docs) {
-        commandes.add(commandeServiceFromMap(doc.data() as Map));
+        commandes.add(await commandeServiceFromMap(doc.data() as Map));
       }
 
       return commandes;
     }
     return [];
+  }
+
+  Future<Servicer?> getServicer(String uid) async {
+    DocumentSnapshot data;
+    data = (await database.doc('/servicer/${uid}/').get());
+
+    if (data != null) {
+      return servicerFromMap(data.data() as Map);
+    }
+    return null;
   }
 
   Future<List<Commande>> getCommandesOfUser(TheUser user) async {
@@ -57,11 +67,33 @@ class CommandeRepository {
     });
   }
 
+  Future<StreamSubscription<QuerySnapshot<Map<String, dynamic>>>>
+      commandeServiceListener(TheUser user, Function refrechFunction) async {
+    return database
+        .collection('/commandes/${user.id}/commandesService/')
+        .snapshots()
+        .listen((event) async {
+      refrechFunction(event.docs);
+    });
+  }
+
   Future<List<Commande>> getCommandes(var docs) async {
     List<Commande> commandes = [];
     if (docs != null) {
       for (var doc in docs) {
         commandes.add(commandeFromMap(doc.data() as Map));
+      }
+
+      return commandes;
+    }
+    return [];
+  }
+
+  Future<List<CommandeService>> getCommandesService(var docs) async {
+    List<CommandeService> commandes = [];
+    if (docs != null) {
+      for (var doc in docs) {
+        commandes.add(await commandeServiceFromMap(doc.data() as Map));
       }
 
       return commandes;

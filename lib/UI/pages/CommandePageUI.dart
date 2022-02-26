@@ -56,6 +56,9 @@ class _CommandePageState extends State<CommandePage> {
                     CommandesList(
                       state: state,
                     ),
+                    CommandesServiceList(
+                      state: state,
+                    ),
                   ],
                 );
               else
@@ -65,6 +68,152 @@ class _CommandePageState extends State<CommandePage> {
         },
       ),
     );
+  }
+}
+
+class CommandesServiceList extends StatelessWidget {
+  final CommandeStateLoaded state;
+  const CommandesServiceList({Key? key, required this.state}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: state.commandeServices!.length,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: EdgeInsets.all(16.0),
+            margin: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                color: getCommandeServiceContainerColor(
+                    state.commandeServices![index].stat),
+                borderRadius: borderRadius),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        child: Text(
+                          (state.commandeServices![index].type == "mc")
+                              ? "Réquisition d'un mécanicien"
+                              : "Réquisition d'un dépannage",
+                          style: textStyleBig.copyWith(
+                              color: getCommandeServiceStatTextColor(
+                                  state.commandeServices![index].stat)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                            borderRadius: borderRadius,
+                            color: getCommandeServiceStatColor(
+                                state.commandeServices![index].stat)),
+                        child: Text(
+                          getCommandeServiceStat(
+                              state.commandeServices![index].stat),
+                          overflow: TextOverflow.ellipsis,
+                          style: textStyleSimple.copyWith(
+                              color: getCommandeServiceStatTextColor(
+                                  state.commandeServices![index].stat)),
+                        )),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/iconMN.png',
+                      width: 150,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width -
+                              16.0 -
+                              150.0 -
+                              8.0 -
+                              16.0 -
+                              16.0 -
+                              30.0,
+                          child: Text(
+                            getCommandeServiceStatSubText(
+                              state.commandeServices![index].stat,
+                              state.commandeServices![index].servicerName,
+                              state.commandeServices![index].type,
+                            ),
+                            style: textStyleSmall.copyWith(
+                                color: getCommandeServiceStatSubTextColor(
+                                    state.commandeServices![index].stat),
+                                overflow: TextOverflow.clip),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (state.commandeServices![index].stat == "2")
+                      Sqaure(
+                          child: Center(
+                        child: Text(
+                          '50 min',
+                          style: textStyleSmall,
+                        ),
+                      )),
+                    if (state.commandeServices![index].stat == "1")
+                      SqaureRed(
+                          child: Text(
+                        'anuller',
+                        style: textStyleSmall.copyWith(color: colorWhite),
+                      )),
+                    if (state.commandeServices![index].stat == "2" ||
+                        state.commandeServices![index].stat == "3" ||
+                        state.commandeServices![index].stat == "0")
+                      Sqaure(
+                          child: Icon(
+                        Ionicons.call,
+                        color: colorMain,
+                      )),
+                    if (state.commandeServices![index].stat == "3")
+                      Sqaure(child: Icon(Ionicons.map, color: colorMain)),
+                    if (state.commandeServices![index].stat == "3")
+                      SqaureBlue(
+                          child: Text(
+                        "accusé de réception",
+                        textAlign: TextAlign.center,
+                        style: textStyleSmall.copyWith(color: colorWhite),
+                      )),
+                    if (state.commandeServices![index].stat == "0" ||
+                        state.commandeServices![index].stat == "4")
+                      Sqaure(
+                          child: Text(
+                        "ok",
+                        textAlign: TextAlign.center,
+                        style: textStyleSmall.copyWith(color: colorBlack),
+                      )),
+                  ],
+                )
+              ],
+            ),
+          );
+        });
   }
 }
 
@@ -463,6 +612,96 @@ Color getCommandeStatSubTextColor(String stat) {
     case "3":
       return colorMain;
     case "4":
+      return colorWhite;
+    case "0":
+      return colorWhite;
+    default:
+      return colorWhite;
+  }
+}
+
+// service
+
+String getCommandeServiceStat(String stat) {
+  return (stat == "1")
+      ? "en attente"
+      : (stat == "2")
+          ? "en route"
+          : (stat == "3")
+              ? "Arrivée"
+              : (stat == "0")
+                  ? "Échouer"
+                  : "abandonner";
+}
+
+Color getCommandeServiceStatColor(String stat) {
+  switch (stat) {
+    case "1":
+      return colorBack;
+    case "2":
+      return colorForceBold;
+    case "3":
+      return colorMain;
+    case "0":
+      return colorRed;
+    default:
+      return colorRed;
+  }
+}
+
+Color getCommandeServiceStatTextColor(String stat) {
+  switch (stat) {
+    case "1":
+      return colorBlack;
+    case "2":
+      return colorBlack;
+    case "3":
+      return colorWhite;
+    case "0":
+      return colorWhite;
+    default:
+      return colorWhite;
+  }
+}
+
+Color getCommandeServiceContainerColor(String stat) {
+  switch (stat) {
+    case "1":
+      return colorWhite;
+    case "2":
+      return colorWhite;
+    case "3":
+      return colorMain;
+    case "0":
+      return colorRed;
+    default:
+      return colorRed;
+  }
+}
+
+String getCommandeServiceStatSubText(String stat, String name, String type) {
+  String job = (type == "mc") ? "Le mécanicien" : "le dépannage";
+  switch (stat) {
+    case "1":
+      return "en cours de recherche";
+    case "2":
+      return "$job $name vient à vous";
+    case "3":
+      return "$job $name est à l'endroit convenu";
+    case "0":
+      return "Malheureusement, $job $name ne peut pas venir vous voir pour des raisons indépendantes de notre volonté";
+    default:
+      return "Vous avez annulé la commande";
+  }
+}
+
+Color getCommandeServiceStatSubTextColor(String stat) {
+  switch (stat) {
+    case "1":
+      return colorMain;
+    case "2":
+      return colorMain;
+    case "3":
       return colorWhite;
     case "0":
       return colorWhite;

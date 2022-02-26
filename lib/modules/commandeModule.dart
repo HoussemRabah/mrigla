@@ -1,3 +1,5 @@
+import 'package:mrigla/Repository/commande_repo.dart';
+
 class Commande {
   String id;
   String bon;
@@ -20,6 +22,22 @@ class Commande {
   }
 }
 
+class Servicer {
+  String id;
+  String nom;
+  String prenom;
+  String tel;
+  String email;
+  String type;
+  Servicer(
+      {required this.id,
+      required this.nom,
+      required this.prenom,
+      required this.tel,
+      required this.email,
+      required this.type});
+}
+
 class CommandeService {
   String id;
   String? carId;
@@ -28,6 +46,8 @@ class CommandeService {
   String stat;
   String servicerId;
   String type;
+  String servicerName;
+  Servicer? servicer;
   CommandeService(
       {required this.id,
       required this.livraison,
@@ -35,7 +55,9 @@ class CommandeService {
       required this.servicerId,
       required this.type,
       this.carId,
-      this.disc});
+      this.disc,
+      required this.servicerName,
+      required this.servicer});
 }
 
 commandeFromMap(Map map) {
@@ -54,16 +76,30 @@ commandeFromMap(Map map) {
   );
 }
 
-CommandeService commandeServiceFromMap(Map map) {
+Future<CommandeService> commandeServiceFromMap(Map map) async {
+  Servicer? servicer =
+      await CommandeRepository().getServicer(map['servicerId']);
   return CommandeService(
-    id: map['id'],
-    servicerId: map['servicerId'],
-    stat: map['stat'],
-    type: map['type'],
-    carId: map['carId'],
-    disc: map['disc'],
-    livraison: map['livraison'],
-  );
+      id: map['id'],
+      servicerId: map['servicerId'],
+      stat: map['stat'],
+      type: (servicer != null) ? servicer.type : "",
+      servicer: servicer,
+      carId: map['carId'],
+      disc: map['disc'],
+      livraison: map['livraison'],
+      servicerName:
+          (servicer != null) ? "${servicer.nom} ${servicer.prenom}" : "");
+}
+
+Servicer servicerFromMap(Map map) {
+  return Servicer(
+      email: map['email'],
+      id: map['id'],
+      nom: map['nom'],
+      prenom: map['prenom'],
+      tel: map['tel'],
+      type: map['type']);
 }
 
 class Ordre {

@@ -36,3 +36,26 @@ class CommandeEventCommandeArchive extends CommandeEvent {
   CommandeEventCommandeArchive({required this.user, required this.commande})
       : super();
 }
+
+class CommandeEventServiceChangeStat extends CommandeEvent {
+  final TheUser? user;
+  final CommandeService commande;
+  final String newStat;
+  CommandeEventServiceChangeStat(
+      {required this.user, required this.commande, required this.newStat})
+      : super();
+}
+
+class CommandeEventServiceDone extends CommandeEvent {
+  final TheUser? user;
+  final CommandeService commande;
+  CommandeEventServiceDone({required this.user, required this.commande})
+      : super();
+}
+
+class CommandeEventServiceArchive extends CommandeEvent {
+  final TheUser? user;
+  final CommandeService commande;
+  CommandeEventServiceArchive({required this.user, required this.commande})
+      : super();
+}

@@ -46,6 +46,42 @@ class CommandeRepository {
     }
   }
 
+  changeCommandeServiceStat(
+      String? uid, CommandeService commande, String newStat) async {
+    if (uid != null) {
+      commande.stat = newStat;
+      await database
+          .doc('/commandes/$uid/commandesService/${commande.id}')
+          .update(commande.toMap());
+    }
+  }
+
+  commandeServiceDone(String? uid, CommandeService commande) async {
+    if (uid != null) {
+      await database
+          .doc('/commandes/$uid/commandesService/${commande.id}')
+          .delete()
+          .then((value) async {
+        await database
+            .doc('/commandes/$uid/commandesServiceDone/${commande.id}')
+            .set(commande.toMap());
+      });
+    }
+  }
+
+  commandeServiceArchive(String? uid, CommandeService commande) async {
+    if (uid != null) {
+      await database
+          .doc('/commandes/$uid/commandesService/${commande.id}')
+          .delete()
+          .then((value) async {
+        await database
+            .doc('/commandes/$uid/commandesServiceArchive/${commande.id}')
+            .set(commande.toMap());
+      });
+    }
+  }
+
   Future<List<CommandeService>> getCommandesServiceOfUser(TheUser user) async {
     List<CommandeService> commandes = [];
 

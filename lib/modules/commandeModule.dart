@@ -75,6 +75,18 @@ class CommandeService {
       this.disc,
       required this.servicerName,
       required this.servicer});
+
+  Map<String, Object?> toMap() {
+    return {
+      "id": id,
+      "carId": carId,
+      "disc": disc,
+      "livraisonId": livraison?.id,
+      "stat": stat,
+      "servicerId": servicerId,
+      "type": type,
+    };
+  }
 }
 
 class Livraison {

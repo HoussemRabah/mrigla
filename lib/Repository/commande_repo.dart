@@ -20,6 +20,19 @@ class CommandeRepository {
     }
   }
 
+  commandeDone(String? uid, Commande commande) async {
+    if (uid != null) {
+      await database
+          .doc('/commandes/$uid/commandes/${commande.id}')
+          .delete()
+          .then((value) async {
+        await database
+            .doc('/commandes/$uid/commandesDone/${commande.id}')
+            .set(commande.commandeToMap());
+      });
+    }
+  }
+
   Future<List<CommandeService>> getCommandesServiceOfUser(TheUser user) async {
     List<CommandeService> commandes = [];
 

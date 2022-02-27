@@ -47,6 +47,20 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
         commandeDB.changeCommandeStat(
             event.user?.id, event.commande, event.newStat);
       }
+
+      // commande done
+      if (event is CommandeEventCommandeDone) {
+        commandeDB.commandeDone(event.user?.id, event.commande);
+      }
+
+      // commande archive
+      if (event is CommandeEventCommandeArchive) {}
+
+      // commande services change stat
+
+      // commande service done
+
+      // commande service archive
     });
   }
 }

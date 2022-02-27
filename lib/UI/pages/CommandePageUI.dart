@@ -87,24 +87,25 @@ class EmptyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Actuellement, vous n'avez pas demandé de service ou de pièces détachées",
-          style: textStyleBig.copyWith(color: colorBlack),
-        ),
-       Image.asset(
-  "assets/noItemImage.png",
-  fit:BoxFit.fitWidth,
-  width: MediaQuery.of(context).size.width*0.8
-),
-        Text(
-          "Qu'attendez-vous? \nAchetez nos services et produits dès maintenant pour obtenir des points et gagner des cadeaux",
-          style: textStyleSimple.copyWith(color: colorBlack),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+              "Actuellement, vous n'avez pas demandé de service ou de pièces détachées",
+              style: textStyleBig.copyWith(color: colorBlack),
+              textAlign: TextAlign.center),
+          Image.asset("assets/noItemImage.png",
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width * 0.8),
+          Text(
+              "Qu'attendez-vous? \nAchetez nos services et produits dès maintenant pour obtenir des points et gagner des cadeaux",
+              style: textStyleSimple.copyWith(color: colorBlack),
+              textAlign: TextAlign.center),
+        ],
+      ),
     );
   }
 }
@@ -497,60 +498,68 @@ class CommandesHeader extends StatelessWidget {
                 height: 8.0,
               ),
               if ((state as CommandeStateLoaded).commandeServices != null)
-                Container(
-                  width: double.infinity,
-                  constraints: BoxConstraints.tightForFinite(),
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      color: colorForce, borderRadius: borderRadius),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if ((state as CommandeStateLoaded)
-                                  .commandeServices!
-                                  .first
-                                  .type ==
-                              "dp")
-                            Image.asset(
-                              'assets/iconDP.png',
-                              fit: BoxFit.fitWidth,
-                              width: 48,
-                            ),
-                          if ((state as CommandeStateLoaded)
+                if ((state as CommandeStateLoaded).commandeServices!.length > 0)
+                  Container(
+                    width: double.infinity,
+                    constraints: BoxConstraints.tightForFinite(),
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                        color: colorForce, borderRadius: borderRadius),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if ((state as CommandeStateLoaded)
+                                    .commandeServices !=
+                                null)
+                              if ((state as CommandeStateLoaded)
                                       .commandeServices!
-                                      .length ==
-                                  2 ||
-                              (state as CommandeStateLoaded)
+                                      .length >
+                                  0)
+                                if ((state as CommandeStateLoaded)
+                                        .commandeServices!
+                                        .first
+                                        .type ==
+                                    "dp")
+                                  Image.asset(
+                                    'assets/iconDP.png',
+                                    fit: BoxFit.fitWidth,
+                                    width: 48,
+                                  ),
+                            if ((state as CommandeStateLoaded)
+                                    .commandeServices!
+                                    .length ==
+                                2)
+                              if ((state as CommandeStateLoaded)
                                       .commandeServices!
                                       .first
                                       .type ==
                                   'mc')
-                            Image.asset(
-                              'assets/iconDR.png',
-                              fit: BoxFit.fitWidth,
-                              width: 48,
-                            ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Text(
-                        ((state as CommandeStateLoaded)
-                                    .commandeServices!
-                                    .length >
-                                1)
-                            ? '${(state as CommandeStateLoaded).commandeServices!.length} service'
-                            : '${(state as CommandeStateLoaded).commandeServices!.length} services',
-                        style: textStyleSmall,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                                Image.asset(
+                                  'assets/iconDR.png',
+                                  fit: BoxFit.fitWidth,
+                                  width: 48,
+                                ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Text(
+                          ((state as CommandeStateLoaded)
+                                      .commandeServices!
+                                      .length >
+                                  1)
+                              ? '${(state as CommandeStateLoaded).commandeServices!.length} service'
+                              : '${(state as CommandeStateLoaded).commandeServices!.length} services',
+                          style: textStyleSmall,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
             ],
           )),
         ],

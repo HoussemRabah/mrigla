@@ -4,7 +4,7 @@ class Commande {
   String id;
   String bon;
   String stat;
-  String livraison;
+  Livraison? livraison;
   List<Ordre> ordres;
   Commande(
       {required this.id,
@@ -42,7 +42,7 @@ class CommandeService {
   String id;
   String? carId;
   String? disc;
-  String livraison;
+  Livraison? livraison;
   String stat;
   String servicerId;
   String type;
@@ -60,7 +60,24 @@ class CommandeService {
       required this.servicer});
 }
 
-commandeFromMap(Map map) {
+class Livraison {
+  String id;
+  String position;
+  String meta;
+  int prix;
+  String date;
+  String stat;
+  Livraison({
+    required this.id,
+    required this.position,
+    required this.meta,
+    required this.date,
+    required this.prix,
+    required this.stat,
+  });
+}
+
+commandeFromMap(Map map) async {
   return Commande(
     id: map['id'],
     bon: map['bon'],
@@ -72,13 +89,25 @@ commandeFromMap(Map map) {
             unitPrice: ordre["unitPrice"],
             qnt: ordre["qnt"])
     ],
-    livraison: map['livraison'],
+    livraison: await CommandeRepository().getLivraison(map["livraisonUrl"]),
+  );
+}
+
+livraisonFromMap(Map map) {
+  return Livraison(
+    id: map["id"],
+    position: map["position"],
+    meta: map["meta"],
+    date: map["date"],
+    prix: map["prix"],
+    stat: map["stat"],
   );
 }
 
 Future<CommandeService> commandeServiceFromMap(Map map) async {
   Servicer? servicer =
       await CommandeRepository().getServicer(map['servicerId']);
+
   return CommandeService(
       id: map['id'],
       servicerId: map['servicerId'],
@@ -87,7 +116,7 @@ Future<CommandeService> commandeServiceFromMap(Map map) async {
       servicer: servicer,
       carId: map['carId'],
       disc: map['disc'],
-      livraison: map['livraison'],
+      livraison: await CommandeRepository().getLivraison(map["livraisonUrl"]),
       servicerName:
           (servicer != null) ? "${servicer.nom} ${servicer.prenom}" : "");
 }

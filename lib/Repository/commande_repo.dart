@@ -39,6 +39,16 @@ class CommandeRepository {
     return null;
   }
 
+  Future<Livraison?> getLivraison(String uid) async {
+    DocumentSnapshot data;
+    data = (await database.doc(uid).get());
+
+    if (data != null) {
+      return livraisonFromMap(data.data() as Map);
+    }
+    return null;
+  }
+
   Future<List<Commande>> getCommandesOfUser(TheUser user) async {
     List<Commande> commandes = [];
 

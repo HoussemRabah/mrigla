@@ -20,6 +20,23 @@ class Commande {
     }
     return totalPrice;
   }
+
+  Map<String, Object?> commandeToMap() {
+    return {
+      "id": this.id,
+      "bon": this.bon,
+      "stat": this.stat,
+      "ordres": [
+        for (Ordre ordre in this.ordres)
+          {
+            "partId": ordre.partId,
+            " unitPrice": ordre.unitPrice,
+            " qnt": ordre.qnt
+          }
+      ],
+      "livraisonId": this.livraison?.id,
+    };
+  }
 }
 
 class Servicer {

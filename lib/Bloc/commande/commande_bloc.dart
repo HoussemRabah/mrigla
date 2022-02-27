@@ -41,6 +41,12 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
         emit(CommandeStateLoaded(
             commandes: commandes, commandeServices: commandeServices));
       }
+
+      // commande change stat
+      if (event is CommandeEventChangeStat) {
+        commandeDB.changeCommandeStat(
+            event.user.id, event.commande, event.newStat);
+      }
     });
   }
 }

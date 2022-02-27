@@ -11,6 +11,13 @@ class CommandeRepository {
   FirebaseFirestore database = FirebaseFirestore.instance;
   bool init = true;
 
+  changeCommandeStat(String uid, Commande commande, String newStat) async {
+    commande.stat = newStat;
+    await database
+        .doc('/commandes/$uid/commandes/${commande.id}')
+        .update(commande.commandeToMap());
+  }
+
   Future<List<CommandeService>> getCommandesServiceOfUser(TheUser user) async {
     List<CommandeService> commandes = [];
 

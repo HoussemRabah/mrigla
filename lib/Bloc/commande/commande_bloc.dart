@@ -54,7 +54,9 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
       }
 
       // commande archive
-      if (event is CommandeEventCommandeArchive) {}
+      if (event is CommandeEventCommandeArchive) {
+        commandeDB.commandeArchive(event.user?.id, event.commande);
+      }
 
       // commande services change stat
 

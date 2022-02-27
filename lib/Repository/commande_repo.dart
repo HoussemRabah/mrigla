@@ -58,7 +58,7 @@ class CommandeRepository {
 
     if (data != null) {
       for (var doc in data.docs) {
-        commandes.add(commandeFromMap(doc.data() as Map));
+        commandes.add(await commandeFromMap(doc.data() as Map));
       }
 
       return commandes;
@@ -91,7 +91,7 @@ class CommandeRepository {
     List<Commande> commandes = [];
     if (docs != null) {
       for (var doc in docs) {
-        commandes.add(commandeFromMap(doc.data() as Map));
+        commandes.add(await commandeFromMap(doc.data() as Map));
       }
 
       return commandes;
@@ -112,7 +112,9 @@ class CommandeRepository {
   }
 }
 
-commandeFromMap(Map map) async {
+Future<Commande> commandeFromMap(Map map) async {
+  Livraison? livraison =
+      await CommandeRepository().getLivraison(map["livraisonId"]);
   return Commande(
     id: map['id'],
     bon: map['bon'],
@@ -124,7 +126,7 @@ commandeFromMap(Map map) async {
             unitPrice: ordre["unitPrice"],
             qnt: ordre["qnt"])
     ],
-    livraison: await CommandeRepository().getLivraison(map["livraisonId"]),
+    livraison: livraison,
   );
 }
 

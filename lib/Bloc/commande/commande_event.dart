@@ -15,7 +15,7 @@ class CommandeEventRefresh extends CommandeEvent {
 }
 
 class CommandeEventChangeStat extends CommandeEvent {
-  final TheUser user;
+  final TheUser? user;
   final Commande commande;
   final String newStat;
   CommandeEventChangeStat(

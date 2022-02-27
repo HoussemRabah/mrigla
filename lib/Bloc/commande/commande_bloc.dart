@@ -45,7 +45,7 @@ class CommandeBloc extends Bloc<CommandeEvent, CommandeState> {
       // commande change stat
       if (event is CommandeEventChangeStat) {
         commandeDB.changeCommandeStat(
-            event.user.id, event.commande, event.newStat);
+            event.user?.id, event.commande, event.newStat);
       }
     });
   }

@@ -368,11 +368,20 @@ class CommandesList extends StatelessWidget {
                         ),
                       )),
                     if (state.commandes![index].stat == "1")
-                      SqaureRed(
-                          child: Text(
-                        'anuller',
-                        style: textStyleSmall.copyWith(color: colorWhite),
-                      )),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<CommandeBloc>().add(
+                              CommandeEventChangeStat(
+                                  commande: state.commandes![index],
+                                  user: userBloc.user,
+                                  newStat: '0'));
+                        },
+                        child: SqaureRed(
+                            child: Text(
+                          'anuller',
+                          style: textStyleSmall.copyWith(color: colorWhite),
+                        )),
+                      ),
                     if (state.commandes![index].stat == "3" ||
                         state.commandes![index].stat == "4" ||
                         state.commandes![index].stat == "0")

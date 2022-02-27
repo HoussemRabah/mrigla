@@ -77,60 +77,6 @@ class Livraison {
   });
 }
 
-commandeFromMap(Map map) async {
-  return Commande(
-    id: map['id'],
-    bon: map['bon'],
-    stat: map['stat'],
-    ordres: [
-      for (Map ordre in map["ordres"])
-        Ordre(
-            partId: ordre["partId"],
-            unitPrice: ordre["unitPrice"],
-            qnt: ordre["qnt"])
-    ],
-    livraison: await CommandeRepository().getLivraison(map["livraisonUrl"]),
-  );
-}
-
-livraisonFromMap(Map map) {
-  return Livraison(
-    id: map["id"],
-    position: map["position"],
-    meta: map["meta"],
-    date: map["date"],
-    prix: map["prix"],
-    stat: map["stat"],
-  );
-}
-
-Future<CommandeService> commandeServiceFromMap(Map map) async {
-  Servicer? servicer =
-      await CommandeRepository().getServicer(map['servicerId']);
-
-  return CommandeService(
-      id: map['id'],
-      servicerId: map['servicerId'],
-      stat: map['stat'],
-      type: (servicer != null) ? servicer.type : "",
-      servicer: servicer,
-      carId: map['carId'],
-      disc: map['disc'],
-      livraison: await CommandeRepository().getLivraison(map["livraisonUrl"]),
-      servicerName:
-          (servicer != null) ? "${servicer.nom} ${servicer.prenom}" : "");
-}
-
-Servicer servicerFromMap(Map map) {
-  return Servicer(
-      email: map['email'],
-      id: map['id'],
-      nom: map['nom'],
-      prenom: map['prenom'],
-      tel: map['tel'],
-      type: map['type']);
-}
-
 class Ordre {
   String partId;
   int unitPrice;

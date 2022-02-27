@@ -30,8 +30,8 @@ class Commande {
         for (Ordre ordre in this.ordres)
           {
             "partId": ordre.partId,
-            " unitPrice": ordre.unitPrice,
-            " qnt": ordre.qnt
+            "unitPrice": ordre.unitPrice,
+            "qnt": ordre.qnt
           }
       ],
       "livraisonId": this.livraison?.id,

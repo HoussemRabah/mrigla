@@ -41,7 +41,7 @@ class CommandeRepository {
 
   Future<Livraison?> getLivraison(String uid) async {
     DocumentSnapshot data;
-    data = (await database.doc(uid).get());
+    data = (await database.doc('/livraison/$uid/').get());
 
     if (data != null) {
       return livraisonFromMap(data.data() as Map);
@@ -124,7 +124,7 @@ commandeFromMap(Map map) async {
             unitPrice: ordre["unitPrice"],
             qnt: ordre["qnt"])
     ],
-    livraison: await CommandeRepository().getLivraison(map["livraisonUrl"]),
+    livraison: await CommandeRepository().getLivraison(map["livraisonId"]),
   );
 }
 
@@ -151,7 +151,7 @@ Future<CommandeService> commandeServiceFromMap(Map map) async {
       servicer: servicer,
       carId: map['carId'],
       disc: map['disc'],
-      livraison: await CommandeRepository().getLivraison(map["livraisonUrl"]),
+      livraison: await CommandeRepository().getLivraison(map["livraisonId"]),
       servicerName:
           (servicer != null) ? "${servicer.nom} ${servicer.prenom}" : "");
 }

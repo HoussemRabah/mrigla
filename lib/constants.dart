@@ -22,3 +22,11 @@ BoxShadow shadows = BoxShadow(
     color: colorForceBold);
 
 const BorderRadius borderRadius = BorderRadius.all(Radius.circular(30.0));
+
+call() {
+  print('calling');
+}
+
+maps() {
+  print('maps');
+}

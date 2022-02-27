@@ -385,28 +385,58 @@ class CommandesList extends StatelessWidget {
                     if (state.commandes![index].stat == "3" ||
                         state.commandes![index].stat == "4" ||
                         state.commandes![index].stat == "0")
-                      Sqaure(
-                          child: Icon(
-                        Ionicons.call,
-                        color: colorMain,
-                      )),
+                      GestureDetector(
+                        onTap: () {
+                          call();
+                        },
+                        child: Sqaure(
+                            child: Icon(
+                          Ionicons.call,
+                          color: colorMain,
+                        )),
+                      ),
                     if (state.commandes![index].stat == "4")
-                      Sqaure(child: Icon(Ionicons.map, color: colorMain)),
+                      GestureDetector(
+                          onTap: () {
+                            maps();
+                          },
+                          child: Sqaure(
+                              child: Icon(Ionicons.map, color: colorMain))),
                     if (state.commandes![index].stat == "4")
-                      SqaureBlue(
-                          child: Text(
-                        "accusé de réception",
-                        textAlign: TextAlign.center,
-                        style: textStyleSmall.copyWith(color: colorWhite),
-                      )),
+                      GestureDetector(
+                        onTap: () {
+                          context
+                              .read<CommandeBloc>()
+                              .add(CommandeEventCommandeDone(
+                                commande: state.commandes![index],
+                                user: userBloc.user,
+                              ));
+                        },
+                        child: SqaureBlue(
+                            child: Text(
+                          "accusé de réception",
+                          textAlign: TextAlign.center,
+                          style: textStyleSmall.copyWith(color: colorWhite),
+                        )),
+                      ),
                     if (state.commandes![index].stat == "0" ||
                         state.commandes![index].stat == "5")
-                      Sqaure(
-                          child: Text(
-                        "ok",
-                        textAlign: TextAlign.center,
-                        style: textStyleSmall.copyWith(color: colorBlack),
-                      )),
+                      GestureDetector(
+                        onTap: () {
+                          context
+                              .read<CommandeBloc>()
+                              .add(CommandeEventCommandeArchive(
+                                commande: state.commandes![index],
+                                user: userBloc.user,
+                              ));
+                        },
+                        child: Sqaure(
+                            child: Text(
+                          "ok",
+                          textAlign: TextAlign.center,
+                          style: textStyleSmall.copyWith(color: colorBlack),
+                        )),
+                      ),
                   ],
                 )
               ],

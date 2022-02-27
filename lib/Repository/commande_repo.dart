@@ -16,7 +16,8 @@ class CommandeRepository {
       commande.stat = newStat;
       await database
           .doc('/commandes/$uid/commandes/${commande.id}')
-          .update(commande.commandeToMap());
+          .update(commande.commandeToMap())
+          .then((value) async {});
     }
   }
 
@@ -28,7 +29,13 @@ class CommandeRepository {
           .then((value) async {
         await database
             .doc('/commandes/$uid/commandesDone/${commande.id}')
-            .set(commande.commandeToMap());
+            .set(commande.commandeToMap())
+            .then((value) async {
+          if (commande.livraison != null)
+            await database
+                .doc('/livraison/${commande.livraison!.id}')
+                .update(commande.livraison!.changeStat("3").toMap());
+        });
       });
     }
   }
@@ -41,7 +48,13 @@ class CommandeRepository {
           .then((value) async {
         await database
             .doc('/commandes/$uid/commandesArchive/${commande.id}')
-            .set(commande.commandeToMap());
+            .set(commande.commandeToMap())
+            .then((value) async {
+          if (commande.livraison != null)
+            await database
+                .doc('/livraison/${commande.livraison!.id}')
+                .update(commande.livraison!.changeStat("0").toMap());
+        });
       });
     }
   }
@@ -64,7 +77,13 @@ class CommandeRepository {
           .then((value) async {
         await database
             .doc('/commandes/$uid/commandesServiceDone/${commande.id}')
-            .set(commande.toMap());
+            .set(commande.toMap())
+            .then((value) async {
+          if (commande.livraison != null)
+            await database
+                .doc('/livraison/${commande.livraison!.id}')
+                .update(commande.livraison!.changeStat("3").toMap());
+        });
       });
     }
   }
@@ -77,7 +96,13 @@ class CommandeRepository {
           .then((value) async {
         await database
             .doc('/commandes/$uid/commandesServiceArchive/${commande.id}')
-            .set(commande.toMap());
+            .set(commande.toMap())
+            .then((value) async {
+          if (commande.livraison != null)
+            await database
+                .doc('/livraison/${commande.livraison!.id}')
+                .update(commande.livraison!.changeStat("0").toMap());
+        });
       });
     }
   }
@@ -203,13 +228,14 @@ Future<Commande> commandeFromMap(Map map) async {
 
 livraisonFromMap(Map map) {
   return Livraison(
-    id: map["id"],
-    position: map["position"],
-    meta: map["meta"],
-    date: map["date"],
-    prix: map["prix"],
-    stat: map["stat"],
-  );
+      id: map["id"],
+      position: map["position"],
+      meta: map["meta"],
+      date: map["date"],
+      prix: map["prix"],
+      stat: map["stat"],
+      telL: map["telL"],
+      telR: map["telR"]);
 }
 
 Future<CommandeService> commandeServiceFromMap(Map map) async {

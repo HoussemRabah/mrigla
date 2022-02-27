@@ -1,5 +1,3 @@
-import 'package:mrigla/Repository/commande_repo.dart';
-
 class Commande {
   String id;
   String bon;
@@ -96,14 +94,35 @@ class Livraison {
   int prix;
   String date;
   String stat;
-  Livraison({
-    required this.id,
-    required this.position,
-    required this.meta,
-    required this.date,
-    required this.prix,
-    required this.stat,
-  });
+  String telL;
+  String telR;
+  Livraison(
+      {required this.id,
+      required this.position,
+      required this.meta,
+      required this.date,
+      required this.prix,
+      required this.stat,
+      required this.telL,
+      required this.telR});
+
+  Livraison changeStat(String newStat) {
+    stat = newStat;
+    return this;
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      "id": id,
+      "position": position,
+      "meta": meta,
+      "prix": prix,
+      "date": date,
+      "stat": stat,
+      "telL": telL,
+      "telR": telR,
+    };
+  }
 }
 
 class Ordre {

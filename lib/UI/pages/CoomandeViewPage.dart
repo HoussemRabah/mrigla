@@ -6,6 +6,7 @@ import 'package:mrigla/UI/pages/HomeUI.dart';
 import 'package:mrigla/UI/widgets/containers.dart';
 import 'package:mrigla/UI/widgets/dialogues.dart';
 import 'package:mrigla/UI/widgets/loading.dart';
+import 'package:mrigla/modules/commandeModule.dart';
 
 import '../../constants.dart';
 import 'CommandePageUI.dart';
@@ -52,38 +53,37 @@ class _CommandePageViewState extends State<CommandePageView> {
                     SizedBox(
                       height: 8.0,
                     ),
+                    InfoContainer(index: widget.index, state: state),
+                    SizedBox(
+                      height: 8.0,
+                    ),
                     Container(
                       margin: EdgeInsets.all(8.0),
                       padding: EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
-                          color: colorWhite, borderRadius: borderRadius),
-                      width: double.infinity,
+                          borderRadius: borderRadius, color: colorWhite),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           infoLine(
-                              title: "bon de commande",
-                              info: state.commandes![widget.index].bon),
-                          infoLine(
-                              title: "date",
-                              info: state.commandes![widget.index].date),
-                          infoLine(
-                              title: "prix net",
-                              info:
-                                  "${state.commandes![widget.index].getTotalPrice()} DA"),
-                          infoLine(
-                              title: "prix livraison",
+                              title: "Date d'arrivée prévue",
                               info: (state.commandes![widget.index].livraison !=
                                       null)
-                                  ? "${state.commandes![widget.index].livraison!.prix} DA"
+                                  ? "${state.commandes![widget.index].livraison!.date}"
                                   : "..."),
                           infoLine(
-                              title: "prix total",
+                              title: "lieu d'arrivée",
                               info: (state.commandes![widget.index].livraison !=
                                       null)
-                                  ? "${state.commandes![widget.index].livraison!.prix + state.commandes![widget.index].getTotalPrice()} DA"
+                                  ? "${state.commandes![widget.index].livraison!.meta}"
                                   : "..."),
+                          GestureDetector(
+                              onTap: () {
+                                maps();
+                              },
+                              child: Sqaure(
+                                  child: Icon(Ionicons.map, color: colorMain))),
                         ],
                       ),
                     ),
@@ -94,6 +94,48 @@ class _CommandePageViewState extends State<CommandePageView> {
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class InfoContainer extends StatelessWidget {
+  const InfoContainer({
+    Key? key,
+    required this.index,
+    required this.state,
+  }) : super(key: key);
+
+  final int index;
+  final CommandeStateLoaded state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(color: colorWhite, borderRadius: borderRadius),
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          infoLine(title: "bon de commande", info: state.commandes![index].bon),
+          infoLine(title: "date", info: state.commandes![index].date),
+          infoLine(
+              title: "prix net",
+              info: "${state.commandes![index].getTotalPrice()} DA"),
+          infoLine(
+              title: "prix livraison",
+              info: (state.commandes![index].livraison != null)
+                  ? "${state.commandes![index].livraison!.prix} DA"
+                  : "..."),
+          infoLine(
+              title: "prix total",
+              info: (state.commandes![index].livraison != null)
+                  ? "${state.commandes![index].livraison!.prix + state.commandes![index].getTotalPrice()} DA"
+                  : "..."),
+        ],
       ),
     );
   }

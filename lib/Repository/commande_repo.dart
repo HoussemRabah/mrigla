@@ -152,7 +152,6 @@ class CommandeRepository {
     QuerySnapshot<Object?> data;
     data =
         (await database.collection('/commandes/${user.id}/commandes/').get());
-
     if (data != null) {
       for (var doc in data.docs) {
         commandes.add(await commandeFromMap(doc.data() as Map));
@@ -216,7 +215,7 @@ Future<Commande> commandeFromMap(Map map) async {
     id: map['id'],
     bon: map['bon'],
     stat: map['stat'],
-    date: map['date'],
+    date: map["date"],
     ordres: [
       for (Map ordre in map["ordres"])
         Ordre(

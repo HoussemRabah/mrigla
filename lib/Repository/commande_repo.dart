@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mrigla/Bloc/commande/commande_bloc.dart';
 import 'package:mrigla/UI/pages/HomeUI.dart';
 import 'package:mrigla/modules/commandeModule.dart';
@@ -255,12 +256,17 @@ Future<CommandeService> commandeServiceFromMap(Map map) async {
           (servicer != null) ? "${servicer.nom} ${servicer.prenom}" : "");
 }
 
-Servicer servicerFromMap(Map map) {
+Future<Servicer> servicerFromMap(Map map) async {
+  FirebaseStorage db = FirebaseStorage.instance;
+  String imageUrl =
+      await db.ref('/servicerImage/${map['id']}').getDownloadURL();
+
   return Servicer(
       email: map['email'],
       id: map['id'],
       nom: map['nom'],
       prenom: map['prenom'],
+      image: imageUrl,
       tel: map['tel'],
       type: map['type']);
 }

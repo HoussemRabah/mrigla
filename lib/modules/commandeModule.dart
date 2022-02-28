@@ -43,6 +43,7 @@ class Servicer {
   String prenom;
   String tel;
   String email;
+  String image;
   String type;
   Servicer(
       {required this.id,
@@ -50,7 +51,8 @@ class Servicer {
       required this.prenom,
       required this.tel,
       required this.email,
-      required this.type});
+      required this.type,
+      required this.image});
 }
 
 class CommandeService {

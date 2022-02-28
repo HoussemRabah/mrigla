@@ -165,8 +165,10 @@ class CommandesServiceList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/iconMN.png',
+                    Image.network(
+                      (state.commandeServices![index].servicer == null)
+                          ? state.commandeServices![index].servicer!.image
+                          : "",
                       width: 150,
                       fit: BoxFit.fitWidth,
                     ),

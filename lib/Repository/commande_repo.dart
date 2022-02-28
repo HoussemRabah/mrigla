@@ -216,6 +216,7 @@ Future<Commande> commandeFromMap(Map map) async {
     id: map['id'],
     bon: map['bon'],
     stat: map['stat'],
+    date: map['date'],
     ordres: [
       for (Map ordre in map["ordres"])
         Ordre(
@@ -245,6 +246,7 @@ Future<CommandeService> commandeServiceFromMap(Map map) async {
 
   return CommandeService(
       id: map['id'],
+      date: map['date'],
       servicerId: map['servicerId'],
       stat: map['stat'],
       type: (servicer != null) ? servicer.type : "",

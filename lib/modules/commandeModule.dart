@@ -4,12 +4,14 @@ class Commande {
   String stat;
   Livraison? livraison;
   List<Ordre> ordres;
+  String date;
   Commande(
       {required this.id,
       required this.livraison,
       required this.bon,
       required this.stat,
-      required this.ordres});
+      required this.ordres,
+      required this.date});
 
   int getTotalPrice() {
     int totalPrice = 0;
@@ -33,6 +35,7 @@ class Commande {
           }
       ],
       "livraisonId": this.livraison?.id,
+      "date": this.date,
     };
   }
 }
@@ -64,6 +67,7 @@ class CommandeService {
   String servicerId;
   String type;
   String servicerName;
+  String date;
   Servicer? servicer;
   CommandeService(
       {required this.id,
@@ -74,6 +78,7 @@ class CommandeService {
       this.carId,
       this.disc,
       required this.servicerName,
+      required this.date,
       required this.servicer});
 
   Map<String, Object?> toMap() {
@@ -85,6 +90,7 @@ class CommandeService {
       "stat": stat,
       "servicerId": servicerId,
       "type": type,
+      "date": date
     };
   }
 }

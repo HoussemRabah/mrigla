@@ -4,6 +4,7 @@ class Commande {
   String stat;
   Livraison? livraison;
   List<Ordre> ordres;
+  List<StatLog> statLogs;
   String date;
   Commande(
       {required this.id,
@@ -11,7 +12,8 @@ class Commande {
       required this.bon,
       required this.stat,
       required this.ordres,
-      required this.date});
+      required this.date,
+      required this.statLogs});
 
   int getTotalPrice() {
     int totalPrice = 0;
@@ -26,6 +28,9 @@ class Commande {
       "id": this.id,
       "bon": this.bon,
       "stat": this.stat,
+      "statLog": [
+        for (StatLog statLog in statLogs) {statLog.toMap()}
+      ],
       "ordres": [
         for (Ordre ordre in this.ordres)
           {
@@ -58,6 +63,21 @@ class Servicer {
       required this.image});
 }
 
+class StatLog {
+  String stat;
+  String date;
+  String changedBy;
+  StatLog({
+    required this.stat,
+    required this.date,
+    required this.changedBy,
+  });
+
+  Map<String, Object?> toMap() {
+    return {"stat": stat, "date": date, "changedBy": changedBy};
+  }
+}
+
 class CommandeService {
   String id;
   String? carId;
@@ -68,6 +88,7 @@ class CommandeService {
   String type;
   String servicerName;
   String date;
+  List<StatLog> statLogs;
   Servicer? servicer;
   CommandeService(
       {required this.id,
@@ -79,7 +100,8 @@ class CommandeService {
       this.disc,
       required this.servicerName,
       required this.date,
-      required this.servicer});
+      required this.servicer,
+      required this.statLogs});
 
   Map<String, Object?> toMap() {
     return {
@@ -90,7 +112,8 @@ class CommandeService {
       "stat": stat,
       "servicerId": servicerId,
       "type": type,
-      "date": date
+      "date": date,
+      "statLog": [for (StatLog statLog in statLogs) statLog.toMap()]
     };
   }
 }

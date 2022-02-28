@@ -216,6 +216,13 @@ Future<Commande> commandeFromMap(Map map) async {
     bon: map['bon'],
     stat: map['stat'],
     date: map["date"],
+    statLogs: [
+      for (Map statLog in map["statLog"])
+        StatLog(
+            stat: statLog["stat"],
+            date: statLog["date"],
+            changedBy: statLog["changedBy"])
+    ],
     ordres: [
       for (Map ordre in map["ordres"])
         Ordre(
@@ -252,6 +259,7 @@ Future<CommandeService> commandeServiceFromMap(Map map) async {
       servicer: servicer,
       carId: map['carId'],
       disc: map['disc'],
+      statLogs: statLogsFromMap(map['statLog']),
       livraison: await CommandeRepository().getLivraison(map["livraisonId"]),
       servicerName:
           (servicer != null) ? "${servicer.nom} ${servicer.prenom}" : "");
@@ -269,4 +277,14 @@ Future<Servicer> servicerFromMap(Map map) async {
       image: imageUrl,
       tel: map['tel'],
       type: map['type']);
+}
+
+List<StatLog> statLogsFromMap(List list) {
+  List<StatLog> statLogs = [];
+
+  for (Map map in list)
+    statLogs.add(StatLog(
+        stat: map['stat'], date: map['date'], changedBy: map['changedBy']));
+
+  return statLogs;
 }

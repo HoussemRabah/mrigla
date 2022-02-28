@@ -258,8 +258,7 @@ Future<CommandeService> commandeServiceFromMap(Map map) async {
 
 Future<Servicer> servicerFromMap(Map map) async {
   FirebaseStorage db = FirebaseStorage.instance;
-  String imageUrl =
-      await db.ref('/servicerImage/${map['id']}').getDownloadURL();
+  String imageUrl = await db.ref(map['image']).getDownloadURL();
 
   return Servicer(
       email: map['email'],

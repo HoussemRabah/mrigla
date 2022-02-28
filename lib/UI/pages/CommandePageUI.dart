@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mrigla/Repository/commande_repo.dart';
+import 'package:mrigla/UI/pages/CoomandeViewPage.dart';
 import 'package:mrigla/UI/widgets/containers.dart';
 import 'package:mrigla/UI/widgets/dialogues.dart';
 import '../../constants.dart';
@@ -328,183 +329,196 @@ class CommandesList extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         itemCount: state.commandes!.length,
         itemBuilder: (context, index) {
-          return Container(
-            padding: EdgeInsets.all(16.0),
-            margin: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                color: getCommandeContainerColor(state.commandes![index].stat),
-                borderRadius: borderRadius),
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        child: Text(
-                          "bon de commande ${state.commandes![index].bon}",
-                          style: textStyleBig.copyWith(
-                              color: getCommandeStatTextColor(
-                                  state.commandes![index].stat)),
-                        ),
-                      ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                            borderRadius: borderRadius,
-                            color: getCommandeStatColor(
-                                state.commandes![index].stat)),
-                        child: Text(
-                          getCommandeStat(state.commandes![index].stat),
-                          overflow: TextOverflow.ellipsis,
-                          style: textStyleSimple.copyWith(
-                              color: getCommandeStatTextColor(
-                                  state.commandes![index].stat)),
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CommandePageView(
+                          commandeBon: state.commandes![index].bon,
+                          index: index,
                         )),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/iconMN.png',
-                      width: 150,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width -
-                              16.0 -
-                              150.0 -
-                              8.0 -
-                              16.0 -
-                              16.0 -
-                              30.0,
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              margin: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                  color:
+                      getCommandeContainerColor(state.commandes![index].stat),
+                  borderRadius: borderRadius),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
                           child: Text(
-                            getCommandeStatSubText(
-                                state.commandes![index].stat),
-                            style: textStyleSmall.copyWith(
-                                color: getCommandeStatSubTextColor(
-                                    state.commandes![index].stat),
-                                overflow: TextOverflow.clip),
+                            "bon de commande ${state.commandes![index].bon}",
+                            style: textStyleBig.copyWith(
+                                color: getCommandeStatTextColor(
+                                    state.commandes![index].stat)),
                           ),
                         ),
-                        SizedBox(
-                          height: 8.0,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    if (state.commandes![index].stat == "1" ||
-                        state.commandes![index].stat == "2" ||
-                        state.commandes![index].stat == "3")
-                      Sqaure(
-                          child: Center(
-                        child: Text(
-                          '${state.commandes![index].getTotalPrice()} DA',
-                          style: textStyleSmall,
-                        ),
-                      )),
-                    if (state.commandes![index].stat == "1" ||
-                        state.commandes![index].stat == "2" ||
-                        state.commandes![index].stat == "3")
-                      Sqaure(
-                          child: Center(
-                        child: Text(
-                          '${state.commandes![index].ordres.length} pieces',
-                          style: textStyleSmall,
-                        ),
-                      )),
-                    if (state.commandes![index].stat == "1")
-                      GestureDetector(
-                        onTap: () {
-                          annulerCommandeDialogue(context, () {
-                            context.read<CommandeBloc>().add(
-                                CommandeEventChangeStat(
-                                    commande: state.commandes![index],
-                                    user: userBloc.user,
-                                    newStat: '0'));
-                          });
-                        },
-                        child: SqaureRed(
+                      ),
+                      Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: borderRadius,
+                              color: getCommandeStatColor(
+                                  state.commandes![index].stat)),
+                          child: Text(
+                            getCommandeStat(state.commandes![index].stat),
+                            overflow: TextOverflow.ellipsis,
+                            style: textStyleSimple.copyWith(
+                                color: getCommandeStatTextColor(
+                                    state.commandes![index].stat)),
+                          )),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/iconMN.png',
+                        width: 150,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width -
+                                16.0 -
+                                150.0 -
+                                8.0 -
+                                16.0 -
+                                16.0 -
+                                30.0,
                             child: Text(
-                          'annuler',
-                          style: textStyleSmall.copyWith(color: colorWhite),
+                              getCommandeStatSubText(
+                                  state.commandes![index].stat),
+                              style: textStyleSmall.copyWith(
+                                  color: getCommandeStatSubTextColor(
+                                      state.commandes![index].stat),
+                                  overflow: TextOverflow.clip),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (state.commandes![index].stat == "1" ||
+                          state.commandes![index].stat == "2" ||
+                          state.commandes![index].stat == "3")
+                        Sqaure(
+                            child: Center(
+                          child: Text(
+                            '${state.commandes![index].getTotalPrice()} DA',
+                            style: textStyleSmall,
+                          ),
                         )),
-                      ),
-                    if (state.commandes![index].stat == "3" ||
-                        state.commandes![index].stat == "4" ||
-                        state.commandes![index].stat == "0")
-                      GestureDetector(
-                        onTap: () {
-                          call();
-                        },
-                        child: Sqaure(
-                            child: Icon(
-                          Ionicons.call,
-                          color: colorMain,
+                      if (state.commandes![index].stat == "1" ||
+                          state.commandes![index].stat == "2" ||
+                          state.commandes![index].stat == "3")
+                        Sqaure(
+                            child: Center(
+                          child: Text(
+                            '${state.commandes![index].ordres.length} pieces',
+                            style: textStyleSmall,
+                          ),
                         )),
-                      ),
-                    if (state.commandes![index].stat == "4")
-                      GestureDetector(
+                      if (state.commandes![index].stat == "1")
+                        GestureDetector(
                           onTap: () {
-                            maps();
+                            annulerCommandeDialogue(context, () {
+                              context.read<CommandeBloc>().add(
+                                  CommandeEventChangeStat(
+                                      commande: state.commandes![index],
+                                      user: userBloc.user,
+                                      newStat: '0'));
+                            });
+                          },
+                          child: SqaureRed(
+                              child: Text(
+                            'annuler',
+                            style: textStyleSmall.copyWith(color: colorWhite),
+                          )),
+                        ),
+                      if (state.commandes![index].stat == "3" ||
+                          state.commandes![index].stat == "4" ||
+                          state.commandes![index].stat == "0")
+                        GestureDetector(
+                          onTap: () {
+                            call();
                           },
                           child: Sqaure(
-                              child: Icon(Ionicons.map, color: colorMain))),
-                    if (state.commandes![index].stat == "4")
-                      GestureDetector(
-                        onTap: () {
-                          OkCommandeDialogue(context, () {
+                              child: Icon(
+                            Ionicons.call,
+                            color: colorMain,
+                          )),
+                        ),
+                      if (state.commandes![index].stat == "4")
+                        GestureDetector(
+                            onTap: () {
+                              maps();
+                            },
+                            child: Sqaure(
+                                child: Icon(Ionicons.map, color: colorMain))),
+                      if (state.commandes![index].stat == "4")
+                        GestureDetector(
+                          onTap: () {
+                            OkCommandeDialogue(context, () {
+                              context
+                                  .read<CommandeBloc>()
+                                  .add(CommandeEventCommandeDone(
+                                    commande: state.commandes![index],
+                                    user: userBloc.user,
+                                  ));
+                            });
+                          },
+                          child: SqaureBlue(
+                              child: Text(
+                            "accusé de réception",
+                            textAlign: TextAlign.center,
+                            style: textStyleSmall.copyWith(color: colorWhite),
+                          )),
+                        ),
+                      if (state.commandes![index].stat == "0" ||
+                          state.commandes![index].stat == "5")
+                        GestureDetector(
+                          onTap: () {
                             context
                                 .read<CommandeBloc>()
-                                .add(CommandeEventCommandeDone(
+                                .add(CommandeEventCommandeArchive(
                                   commande: state.commandes![index],
                                   user: userBloc.user,
                                 ));
-                          });
-                        },
-                        child: SqaureBlue(
-                            child: Text(
-                          "accusé de réception",
-                          textAlign: TextAlign.center,
-                          style: textStyleSmall.copyWith(color: colorWhite),
-                        )),
-                      ),
-                    if (state.commandes![index].stat == "0" ||
-                        state.commandes![index].stat == "5")
-                      GestureDetector(
-                        onTap: () {
-                          context
-                              .read<CommandeBloc>()
-                              .add(CommandeEventCommandeArchive(
-                                commande: state.commandes![index],
-                                user: userBloc.user,
-                              ));
-                        },
-                        child: Sqaure(
-                            child: Text(
-                          "ok",
-                          textAlign: TextAlign.center,
-                          style: textStyleSmall.copyWith(color: colorBlack),
-                        )),
-                      ),
-                  ],
-                )
-              ],
+                          },
+                          child: Sqaure(
+                              child: Text(
+                            "ok",
+                            textAlign: TextAlign.center,
+                            style: textStyleSmall.copyWith(color: colorBlack),
+                          )),
+                        ),
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         });

@@ -161,50 +161,70 @@ class CommandesServiceList extends StatelessWidget {
                         )),
                   ],
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.network(
-                      (state.commandeServices![index].servicer != null)
-                          ? state.commandeServices![index].servicer!.image
-                          : "",
-                      width: 150,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width -
-                              16.0 -
-                              150.0 -
-                              8.0 -
-                              16.0 -
-                              16.0 -
-                              30.0,
-                          child: Text(
-                            getCommandeServiceStatSubText(
-                              state.commandeServices![index].stat,
-                              state.commandeServices![index].servicerName,
-                              state.commandeServices![index].type,
-                            ),
-                            style: textStyleSmall.copyWith(
-                                color: getCommandeServiceStatSubTextColor(
-                                    state.commandeServices![index].stat),
-                                overflow: TextOverflow.clip),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 4.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      if (state.commandeServices![index].stat != "1")
+                        ClipRRect(
+                          borderRadius: borderRadius,
+                          child: Image.network(
+                            (state.commandeServices![index].servicer != null)
+                                ? state.commandeServices![index].servicer!.image
+                                : "",
+                            width: 150,
+                            fit: BoxFit.fitWidth,
                           ),
                         ),
+                      if (state.commandeServices![index].stat == "1")
                         SizedBox(
-                          height: 8.0,
+                          width: 150,
+                          child: Center(
+                            child: Image.asset(
+                              (state.commandeServices![index].type == "mc")
+                                  ? "assets/iconMC.png"
+                                  : "assets/iconDP.png",
+                              width: 96,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ),
                         ),
-                      ],
-                    )
-                  ],
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width -
+                                16.0 -
+                                150.0 -
+                                8.0 -
+                                16.0 -
+                                16.0 -
+                                10.0,
+                            child: Text(
+                              getCommandeServiceStatSubText(
+                                state.commandeServices![index].stat,
+                                state.commandeServices![index].servicerName,
+                                state.commandeServices![index].type,
+                              ),
+                              style: textStyleSmall.copyWith(
+                                  color: getCommandeServiceStatSubTextColor(
+                                      state.commandeServices![index].stat),
+                                  overflow: TextOverflow.clip),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

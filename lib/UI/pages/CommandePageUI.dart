@@ -1,8 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mrigla/Repository/commande_repo.dart';
 import 'package:mrigla/UI/widgets/containers.dart';
+import 'package:mrigla/UI/widgets/dialogues.dart';
 import '../../constants.dart';
 import '/../Bloc/auth/user_bloc.dart';
 import '/../Bloc/commande/commande_bloc.dart';
@@ -238,18 +240,21 @@ class CommandesServiceList extends StatelessWidget {
                           style: textStyleSmall,
                         ),
                       )),
-                    if (state.commandeServices![index].stat == "1")
+                    if (state.commandeServices![index].stat == "1" ||
+                        state.commandeServices![index].stat == "2")
                       GestureDetector(
                         onTap: () {
-                          context.read<CommandeBloc>().add(
-                              CommandeEventServiceChangeStat(
-                                  user: userBloc.user,
-                                  commande: state.commandeServices![index],
-                                  newStat: "0"));
+                          annulerCommandeDialogue(context, () {
+                            context.read<CommandeBloc>().add(
+                                CommandeEventServiceChangeStat(
+                                    user: userBloc.user,
+                                    commande: state.commandeServices![index],
+                                    newStat: "0"));
+                          });
                         },
                         child: SqaureRed(
                             child: Text(
-                          'anuller',
+                          'annuler',
                           style: textStyleSmall.copyWith(color: colorWhite),
                         )),
                       ),
@@ -271,12 +276,14 @@ class CommandesServiceList extends StatelessWidget {
                     if (state.commandeServices![index].stat == "3")
                       GestureDetector(
                         onTap: () {
-                          context
-                              .read<CommandeBloc>()
-                              .add(CommandeEventServiceDone(
-                                user: userBloc.user,
-                                commande: state.commandeServices![index],
-                              ));
+                          OkCommandeDialogue(context, () {
+                            context
+                                .read<CommandeBloc>()
+                                .add(CommandeEventServiceDone(
+                                  user: userBloc.user,
+                                  commande: state.commandeServices![index],
+                                ));
+                          });
                         },
                         child: SqaureBlue(
                             child: Text(
@@ -424,15 +431,17 @@ class CommandesList extends StatelessWidget {
                     if (state.commandes![index].stat == "1")
                       GestureDetector(
                         onTap: () {
-                          context.read<CommandeBloc>().add(
-                              CommandeEventChangeStat(
-                                  commande: state.commandes![index],
-                                  user: userBloc.user,
-                                  newStat: '0'));
+                          annulerCommandeDialogue(context, () {
+                            context.read<CommandeBloc>().add(
+                                CommandeEventChangeStat(
+                                    commande: state.commandes![index],
+                                    user: userBloc.user,
+                                    newStat: '0'));
+                          });
                         },
                         child: SqaureRed(
                             child: Text(
-                          'anuller',
+                          'annuler',
                           style: textStyleSmall.copyWith(color: colorWhite),
                         )),
                       ),
@@ -459,12 +468,14 @@ class CommandesList extends StatelessWidget {
                     if (state.commandes![index].stat == "4")
                       GestureDetector(
                         onTap: () {
-                          context
-                              .read<CommandeBloc>()
-                              .add(CommandeEventCommandeDone(
-                                commande: state.commandes![index],
-                                user: userBloc.user,
-                              ));
+                          OkCommandeDialogue(context, () {
+                            context
+                                .read<CommandeBloc>()
+                                .add(CommandeEventCommandeDone(
+                                  commande: state.commandes![index],
+                                  user: userBloc.user,
+                                ));
+                          });
                         },
                         child: SqaureBlue(
                             child: Text(
